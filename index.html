@@ -1,0 +1,3118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>趣爪 Playpaw</title>
+    <meta
+      name="description"
+      content="趣爪 Playpaw — 智创玩物。先想清楚怎么玩，再用羊毛、棉绳和陶做出来。"
+    />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%231A1714' width='32' height='32' rx='6'/%3E%3Ccircle fill='%23F3EEE6' cx='11' cy='11' r='3'/%3E%3Ccircle fill='%23F3EEE6' cx='21' cy='11' r='3'/%3E%3Ccircle fill='%23F3EEE6' cx='8' cy='17.5' r='2.4'/%3E%3Ccircle fill='%23F3EEE6' cx='24' cy='17.5' r='2.4'/%3E%3Cellipse fill='%23F3EEE6' cx='16' cy='22' rx='5' ry='4.2'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css?v=lang6" />
+    <script src="clear-account.js?v=4"></script>
+    <script src="i18n.js?v=11"></script>
+    <style>
+      .qty,
+      .qty button,
+      .qty .qty-num {
+        background: transparent !important;
+        background-color: transparent !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+        box-shadow: none !important;
+      }
+      .qty {
+        border: 1px solid rgba(26, 23, 20, 0.12) !important;
+        background: transparent !important;
+      }
+      .qty button {
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+        min-height: 28px !important;
+        padding: 0 !important;
+      }
+      .qty .qty-num {
+        width: 36px !important;
+        height: 28px !important;
+        min-width: 36px !important;
+        padding: 0 !important;
+        font-size: 14px !important;
+      }
+      html, body, h1, h2, h3, h4, .zh {
+        font-family: "Songti SC", "STSong", "SimSun", "Songti", serif !important;
+      }
+      html[data-lang="en"], html[data-lang="en"] body, html[data-lang="en"] .en {
+        font-family: "Times New Roman", Times, serif !important;
+      }
+      html[data-lang="ja"], html[data-lang="ja"] body, html[data-lang="ja"] .ja {
+        font-family: "Hiragino Mincho ProN", "YuMincho", "Yu Mincho", "Songti SC", serif !important;
+      }
+      html[data-lang="ko"], html[data-lang="ko"] body, html[data-lang="ko"] .ko {
+        font-family: "Apple Myungjo", "Nanum Myeongjo", "Songti SC", serif !important;
+      }
+      html[data-lang="th"], html[data-lang="th"] body, html[data-lang="th"] .th {
+        font-family: Thonburi, Ayuthaya, "Songti SC", serif !important;
+      }
+      html[data-lang="ar"], html[data-lang="ar"] body, html[data-lang="ar"] .ar {
+        font-family: "Geeza Pro", Damascus, "Noto Naskh Arabic", serif !important;
+      }
+      .brand { font-size: 13px !important; }
+      .brand-mark { width: 18px !important; height: 18px !important; }
+      .hero .eyebrow { font-size: 18px !important; letter-spacing: 0.08em !important; text-transform: none !important; }
+      .pdp-frame { align-self: start !important; height: fit-content !important; }
+      .pdp-media { z-index: 2; }
+      .sku-pet-wrap, .sku-pet, .cat-wand, .dirt-hill, .dirt-speck, .dig-paw, .reach-paw { display: none !important; }
+      html, body, a, button, .swatch, .size-opt, .add-btn, .qty button, .chip, .rate-stars button {
+        cursor: none !important;
+      }
+      .sku-pet {
+        width: 100% !important;
+        background: none !important;
+        background-color: transparent !important;
+        pointer-events: auto !important;
+      }
+      .review-list:empty::before {
+        content: none !important;
+        display: none !important;
+      }
+      .review-body > span:last-child,
+      .review-body > span:last-child .zh,
+      .review-body > span:last-child .en,
+      .review-body > span:last-child .ja,
+      .review-body > span:last-child .ko,
+      .review-body > span:last-child .th,
+      .review-body > span:last-child .ar {
+        font-size: 18px !important;
+        line-height: 1.65 !important;
+      }
+      .sku-pet-wrap.pos-top.is-reach { clip-path: none !important; }
+      .sku-pet-wrap.pos-top.is-reach .sku-pet-mot {
+        transform-origin: 88% 70% !important;
+        animation: petReachL 2.8s ease !important;
+      }
+    </style>
+    <link rel="preload" as="image" href="images/yama-play.jpg" />
+    <link rel="preload" as="image" href="images/nawa-play.jpg" />
+    <link rel="preload" as="image" href="images/nezumi-play.jpg" />
+    <link rel="preload" as="image" href="images/wan-play.jpg" />
+    <link rel="preload" as="image" href="images/fukuro-play.jpg" />
+
+    <link rel="preload" as="image" href="images/kumo-play.jpg" />
+  </head>
+  <body>
+    <header class="header">
+      <a class="brand" href="#top">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="currentColor"/><circle cx="11" cy="11" r="3" fill="#F3EEE6"/><circle cx="21" cy="11" r="3" fill="#F3EEE6"/><circle cx="8" cy="17.5" r="2.4" fill="#F3EEE6"/><circle cx="24" cy="17.5" r="2.4" fill="#F3EEE6"/><ellipse cx="16" cy="22" rx="5" ry="4.2" fill="#F3EEE6"/></svg>
+        <span class="brand-lockup">
+          <span class="zh">趣爪</span>
+          <span class="en">Playpaw</span>
+          <span class="brand-en zh">PLAYPAW · 智创</span>
+          <span class="brand-en en">趣爪 · 智创</span>
+        </span>
+      </a>
+      <nav class="nav">
+        <a href="#shop"><span class="zh">选物</span><span class="en">Shop</span></a>
+        <a href="#about"><span class="zh">关于</span><span class="en">About</span></a>
+        <a href="checkout.html"><span class="zh">结账</span><span class="en">Checkout</span></a>
+      </nav>
+      <div class="header-actions">
+        <label class="lang-menu">
+          <span class="lang-label">语言</span>
+          <select id="langSelect" class="lang-select" aria-label="Language">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="th">ไทย</option>
+            <option value="ar">العربية</option>
+          </select>
+        </label>
+        <button type="button" class="icon-btn" id="headerLoginBtn" onclick="window.qzShowAuth('login')"><span class="zh">登录</span><span class="en">Log in</span></button>
+        <button type="button" class="icon-btn" id="headerRegBtn" onclick="window.qzShowAuth('reg')"><span class="zh">注册</span><span class="en">Register</span></button>
+        <div class="header-user" id="headerUser" hidden>
+          <a href="account.html" class="header-user-link" id="headerProfileLink" aria-label="打开我的账户">
+            <img id="userAvatar" alt="" />
+            <span id="userName"></span>
+          </a>
+          <input type="file" id="headerAvatarFile" accept="image/*" hidden />
+          <button type="button" class="icon-btn logout-btn" id="logoutBtn"><span class="zh">退出登录</span><span class="en">Log out</span></button>
+        </div>
+        <div class="header-bag">
+          <button type="button" class="icon-btn" id="bagBtn">
+            <span class="zh">购物袋</span><span class="en">Bag</span>
+            <span class="cart-count" id="cartCount">0</span>
+            <span class="header-total bag-total">¥0</span>
+          </button>
+          <div class="bag-pop" id="bagPop" hidden>
+            <div id="bagList" class="empty"></div>
+            <div class="bag-sum bag-sub">
+              <span class="zh">商品</span><span class="en">Goods</span>
+              <span id="bagGoods">¥0</span>
+            </div>
+            <div class="bag-sum bag-sub bag-off-row" id="bagOffRow" hidden>
+              <span class="zh">首单 15% 优惠</span><span class="en">First-order 15% off</span>
+              <span id="bagOff">−¥0</span>
+            </div>
+            <div class="bag-sum bag-sub">
+              <span class="zh">配送</span><span class="en">Delivery</span>
+              <span id="bagShip">¥0</span>
+            </div>
+            <div class="bag-sum">
+              <span class="zh">合计</span><span class="en">Total</span>
+              <strong class="bag-total">¥0</strong>
+            </div>
+            <p id="bagMinNote" class="bag-min-note" hidden></p>
+            <a class="btn btn-primary btn-block" href="checkout.html" id="bagCheckout"><span class="zh">去结账</span><span class="en">Checkout</span></a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="zh">趣爪 · 智创</span>
+            <span class="en">Playpaw · Play, thought through</span>
+          </p>
+          <h1 class="display">
+            <span class="zh">给毛孩子的好玩伴</span>
+            <span class="en">Playmates for dogs and cats</span>
+          </h1>
+          <p class="lede">
+            <span class="zh">质量扎实，做工细，材料也安全。羊毛、棉绳和陶，经得起玩，也放得进家里。</span>
+            <span class="en">Solid quality, fine craft, safe material.</span>
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#shop"><span class="zh">进入选物</span><span class="en">Enter the shop</span></a>
+            <a class="btn btn-ghost" href="#about"><span class="zh">关于趣爪</span><span class="en">About Playpaw</span></a>
+          </div>
+        </div>
+        <div class="hero-visual" id="heroVisual">
+          <div class="hero-track" id="heroTrack">
+            <figure class="hero-slide is-on">
+              <img src="images/hero.jpg" alt="" />
+              <figcaption class="hero-caption"><span class="zh">午后 · 客厅</span><span class="en">Afternoon · living room</span></figcaption>
+            </figure>
+            <figure class="hero-slide">
+              <img src="images/yama-play.jpg" alt="" />
+              <figcaption class="hero-caption"><span class="zh">嗅闻 · 山峦垫</span><span class="en">Foraging · Yama</span></figcaption>
+            </figure>
+            <figure class="hero-slide">
+              <img src="images/nawa-play.jpg" alt="" />
+              <figcaption class="hero-caption"><span class="zh">拔河 · 棉绳</span><span class="en">Tug · Nawa</span></figcaption>
+            </figure>
+            <figure class="hero-slide">
+              <img src="images/nezumi-play.jpg" alt="" />
+              <figcaption class="hero-caption"><span class="zh">逗猎 · 小鼠</span><span class="en">Hunt · Nezumi</span></figcaption>
+            </figure>
+            <figure class="hero-slide">
+              <img src="images/atelier.jpg" alt="" />
+              <figcaption class="hero-caption"><span class="zh">工坊 · 手头</span><span class="en">Atelier · in hand</span></figcaption>
+            </figure>
+            <figure class="hero-slide">
+              <img src="images/wan-play.jpg" alt="" />
+              <figcaption class="hero-caption"><span class="zh">慢食 · 陶碗</span><span class="en">Slow eat · Wan</span></figcaption>
+            </figure>
+            <figure class="hero-slide">
+              <img src="images/fukuro-play.jpg" alt="" />
+              <figcaption class="hero-caption"><span class="zh">翻找 · 藏宝袋</span><span class="en">Burrow · Fukuro</span></figcaption>
+            </figure>
+            <figure class="hero-slide">
+              <img src="images/kumo-play.jpg" alt="" />
+              <figcaption class="hero-caption"><span class="zh">安抚 · 云朵枕</span><span class="en">Rest · Kumo</span></figcaption>
+            </figure>
+          </div>
+          <button type="button" class="hero-arrow hero-prev" id="heroPrev" aria-label="prev">‹</button>
+          <button type="button" class="hero-arrow hero-next" id="heroNext" aria-label="next">›</button>
+          <div class="hero-dots" id="heroDots"></div>
+        </div>
+      </section>
+
+      <section class="manifesto" aria-label="certificates">
+        <div class="cert-marquee">
+          <div class="cert-track">
+            <span class="zh">GB 6675 国家玩具安全</span><span class="en">GB 6675 National Toy Safety</span>
+            <span class="cert-dot" aria-hidden="true">·</span>
+            <span class="zh">GB 4806 食品接触材料</span><span class="en">GB 4806 Food-contact Materials</span>
+            <span class="cert-dot" aria-hidden="true">·</span>
+            <span class="zh">重金属与邻苯检测</span><span class="en">Heavy-metal &amp; phthalate tests</span>
+            <span class="cert-dot" aria-hidden="true">·</span>
+            <span class="zh">EN 71 玩具安全（出口）</span><span class="en">EN 71 Toy Safety (export)</span>
+            <span class="cert-dot" aria-hidden="true">·</span>
+            <span class="zh">GB 6675 国家玩具安全</span><span class="en">GB 6675 National Toy Safety</span>
+            <span class="cert-dot" aria-hidden="true">·</span>
+            <span class="zh">GB 4806 食品接触材料</span><span class="en">GB 4806 Food-contact Materials</span>
+            <span class="cert-dot" aria-hidden="true">·</span>
+            <span class="zh">重金属与邻苯检测</span><span class="en">Heavy-metal &amp; phthalate tests</span>
+            <span class="cert-dot" aria-hidden="true">·</span>
+            <span class="zh">EN 71 玩具安全（出口）</span><span class="en">EN 71 Toy Safety (export)</span>
+            <span class="cert-dot" aria-hidden="true">·</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="shop">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker"><span class="zh">目录</span><span class="en">Catalogue</span></p>
+              <h2 class="display"><span class="zh">选物</span><span class="en">Shop</span></h2>
+            </div>
+          </div>
+          <div class="shop-group" id="hot">
+            <h3 class="shop-group-title"><span class="zh">热卖</span><span class="en">Bestsellers</span></h3>
+          <div class="product-grid">
+            <a class="card" href="#yama">
+              <div class="card-media"><span class="card-badge"><span class="zh">大家最爱带回家</span><span class="en">Most loved</span></span><img src="images/yama.jpg" alt="山峦嗅闻垫" onmouseenter="this.src='images/yama-play.jpg'" onmouseleave="this.src='images/yama.jpg'" /></div>
+              <div class="card-meta"><h3><span class="zh">山峦嗅闻垫</span><span class="en">Yama Sniff Mat</span></h3><span class="rating" aria-label="4.8 / 5"><span class="stars" style="--score:4.8"><span class="stars-bg">★★★★★</span><span class="stars-fill">★★★★★</span></span><span class="score">4.8</span></span><span class="price"><span class="zh">¥67</span><span class="en">$9.5</span></span></div>
+              <p class="card-sub"><span class="zh">一层一层的羊毛小山，把零食藏进去，鼻子能忙好一会儿。</span><span class="en">Little wool mountains that hide treats and keep the nose busy.</span></p>
+              <p class="card-sku"><span class="zh">3 色 · 3 尺寸</span><span class="en">3 colors · 3 sizes</span></p>
+              <p class="card-sold"><span class="zh">已售 328</span><span class="en">328 sold</span></p>
+            </a>
+            <a class="card" href="#nawa">
+              <div class="card-media"><img src="images/nawa.jpg" alt="双色棉绳" onmouseenter="this.src='images/nawa-play.jpg'" onmouseleave="this.src='images/nawa.jpg'" /></div>
+              <div class="card-meta"><h3><span class="zh">双色棉绳</span><span class="en">Nawa Tug Rope</span></h3><span class="rating" aria-label="4.6 / 5"><span class="stars" style="--score:4.6"><span class="stars-bg">★★★★★</span><span class="stars-fill">★★★★★</span></span><span class="score">4.6</span></span><span class="price"><span class="zh">¥42</span><span class="en">$6</span></span></div>
+              <p class="card-sub"><span class="zh">陶土色缠着燕麦色，粗、软，轻轻拉就很开心。</span><span class="en">Clay and oatmeal cotton — soft to chew, fun to tug.</span></p>
+              <p class="card-sku"><span class="zh">2 色 · 2 长度</span><span class="en">2 colors · 2 lengths</span></p>
+              <p class="card-sold"><span class="zh">已售 256</span><span class="en">256 sold</span></p>
+            </a>
+            <a class="card" href="#nezumi">
+              <div class="card-media"><img src="images/nezumi.jpg" alt="毡毛小鼠" onmouseenter="this.src='images/nezumi-play.jpg'" onmouseleave="this.src='images/nezumi.jpg'" /></div>
+              <div class="card-meta"><h3><span class="zh">毡毛小鼠</span><span class="en">Nezumi Felt Mouse</span></h3><span class="rating" aria-label="4.9 / 5"><span class="stars" style="--score:4.9"><span class="stars-bg">★★★★★</span><span class="stars-fill">★★★★★</span></span><span class="score">4.9</span></span><span class="price"><span class="zh">¥24.5</span><span class="en">$3.5</span></span></div>
+              <p class="card-sub"><span class="zh">刚好能叼走的一只小鼠，亚麻耳朵会轻轻抖。</span><span class="en">A mouse just the right size to steal, with linen ears that wiggle.</span></p>
+              <p class="card-sku"><span class="zh">3 色 · 2 尺寸</span><span class="en">3 colors · 2 sizes</span></p>
+              <p class="card-sold"><span class="zh">已售 412</span><span class="en">412 sold</span></p>
+            </a>
+          </div>
+          </div>
+          <div class="shop-group" id="new">
+            <h3 class="shop-group-title"><span class="zh">新品</span><span class="en">New</span></h3>
+          <div class="product-grid">
+            <a class="card" href="#wan">
+              <div class="card-media"><span class="card-badge"><span class="zh">刚出炉</span><span class="en">Fresh from the kiln</span></span><img src="images/wan.jpg" alt="慢食陶碗" onmouseenter="this.src='images/wan-play.jpg'" onmouseleave="this.src='images/wan.jpg'" /></div>
+              <div class="card-meta"><h3><span class="zh">慢食陶碗</span><span class="en">Wan Puzzle Bowl</span></h3><span class="rating" aria-label="4.7 / 5"><span class="stars" style="--score:4.7"><span class="stars-bg">★★★★★</span><span class="stars-fill">★★★★★</span></span><span class="score">4.7</span></span><span class="price"><span class="zh">¥57</span><span class="en">$8</span></span></div>
+              <p class="card-sub"><span class="zh">一只不那么规矩的陶碗，吃饭也能变成游戏。</span><span class="en">A slightly unruly bowl that turns dinner into a game.</span></p>
+              <p class="card-sku"><span class="zh">3 釉色 · 2 口径</span><span class="en">3 glazes · 2 diameters</span></p>
+              <p class="card-sold"><span class="zh">已售 86</span><span class="en">86 sold</span></p>
+            </a>
+            <a class="card" href="#fukuro">
+              <div class="card-media"><img src="images/fukuro.jpg" alt="帆布藏宝袋" onmouseenter="this.src='images/fukuro-play.jpg'" onmouseleave="this.src='images/fukuro.jpg'" /></div>
+              <div class="card-meta"><h3><span class="zh">帆布藏宝袋</span><span class="en">Fukuro Burrow Bag</span></h3><span class="rating" aria-label="4.5 / 5"><span class="stars" style="--score:4.5"><span class="stars-bg">★★★★★</span><span class="stars-fill">★★★★★</span></span><span class="score">4.5</span></span><span class="price"><span class="zh">¥49.5</span><span class="en">$7</span></span></div>
+              <p class="card-sub"><span class="zh">一袋皱着的帆布，把玩具和零食藏进去翻。</span><span class="en">A crumpled canvas bag for hiding toys and treats — then finding them.</span></p>
+              <p class="card-sku"><span class="zh">3 色 · 2 尺寸</span><span class="en">3 colors · 2 sizes</span></p>
+              <p class="card-sold"><span class="zh">已售 64</span><span class="en">64 sold</span></p>
+            </a>
+            <a class="card" href="#kumo">
+              <div class="card-media"><img src="images/kumo.jpg" alt="云朵安抚枕" onmouseenter="this.src='images/kumo-play.jpg'" onmouseleave="this.src='images/kumo.jpg'" /></div>
+              <div class="card-meta"><h3><span class="zh">云朵安抚枕</span><span class="en">Kumo Cloud Cushion</span></h3><span class="rating" aria-label="4.8 / 5"><span class="stars" style="--score:4.8"><span class="stars-bg">★★★★★</span><span class="stars-fill">★★★★★</span></span><span class="score">4.8</span></span><span class="price"><span class="zh">¥62</span><span class="en">$8.75</span></span></div>
+              <p class="card-sub"><span class="zh">一朵软软的亚麻小云，给爱枕着东西的孩子。</span><span class="en">A soft linen cloud for anyone who likes to rest a chin on something.</span></p>
+              <p class="card-sku"><span class="zh">3 色 · 3 尺寸</span><span class="en">3 colors · 3 sizes</span></p>
+              <p class="card-sold"><span class="zh">已售 91</span><span class="en">91 sold</span></p>
+            </a>
+          </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap pdp" id="yama">
+        <div class="pdp-frame">
+        <div class="pdp-media" data-gallery data-spin="yama">
+          <div class="pdp-track">
+            <img class="sku-photo pdp-slide is-on" src="images/yama-sg.jpg" alt="山峦嗅闻垫" />
+            <img class="pdp-slide real-shot" src="images/yama-real.jpg" alt="" />
+          </div>
+          <button type="button" class="pdp-arrow pdp-prev" aria-label="prev">‹</button>
+          <button type="button" class="pdp-arrow pdp-next" aria-label="next">›</button>
+          <div class="pdp-dots"></div>
+        </div>
+        </div>
+        <div class="pdp-info">
+          <p class="eyebrow"><span class="zh">狗与猫</span><span class="en">Dogs &amp; cats</span></p>
+          <h2 class="display pdp-name"><span class="zh">山峦嗅闻垫</span><span class="en">Yama Sniff Mat</span><span class="rating" aria-label="4.8 / 5"><span class="stars" style="--score:4.8"><span class="stars-bg">★★★★★</span><span class="stars-fill">★★★★★</span></span><span class="score">4.8</span></span></h2>
+          <p class="pdp-price"><span class="zh">¥67</span><span class="en">$9.5</span></p>
+          <p class="card-sold"><span class="zh">已售 328</span><span class="en">328 sold</span></p>
+          <p class="zh">湿毡羊毛叠成小山，缝线有一点点不规则。把粮撒进谷地，狗会用鼻子找，猫也会伸爪子试。玩个十分钟刚刚好，用完整片手洗就行。</p>
+          <p class="en">Wet-felted wool stacked into little mountains. Scatter kibble in the valleys and let them hunt. A fun ten minutes, then hand-wash the whole piece.</p>
+          <div class="variants" data-prefix="QZ-YAMA" data-cny="67" data-usd="9.5">
+            <div class="opt-row">
+              <p class="opt-label"><span class="zh">颜色</span><span class="en">Color</span></p>
+              <div class="swatches">
+                <button type="button" class="swatch is-on" data-opt="color" data-code="SG" data-zh="苔绿" data-en="Sage" data-img="images/yama-sg.jpg" style="--sw:#6b7d5a" aria-label="Sage"></button>
+                <button type="button" class="swatch" data-opt="color" data-code="TC" data-zh="陶土" data-en="Terracotta" data-img="images/yama-tc.jpg" style="--sw:#c45c26" aria-label="Terracotta"></button>
+                <button type="button" class="swatch" data-opt="color" data-code="OT" data-zh="燕麦" data-en="Oatmeal" data-img="images/yama-ot.jpg" style="--sw:#d8cbb8" aria-label="Oatmeal"></button>
+              </div>
+            </div>
+            <div class="opt-row">
+              <p class="opt-label"><span class="zh">尺寸</span><span class="en">Size</span></p>
+              <div class="size-opts">
+                <button type="button" class="size-opt" data-opt="size" data-code="S" data-zh="小 28cm" data-en="S 28cm" data-l="28" data-w="28" data-cny="57" data-usd="8">S</button>
+                <button type="button" class="size-opt is-on" data-opt="size" data-code="M" data-zh="中 32cm" data-en="M 32cm" data-l="32" data-w="32" data-cny="67" data-usd="9.5">M</button>
+                <button type="button" class="size-opt" data-opt="size" data-code="L" data-zh="大 40cm" data-en="L 40cm" data-l="40" data-w="40" data-cny="79.5" data-usd="11.25">L</button>
+              </div>
+            </div>
+            <p class="sku-line"><span>SKU</span><span class="sku-code">QZ-YAMA-SG-M</span></p>
+          </div>
+          <div class="qty-row">
+            <p class="opt-label"><span class="zh">数量</span><span class="en">Quantity</span></p>
+            <div class="qty" data-qty="1">
+              <button type="button" class="qty-minus">−</button>
+              <input class="qty-num" type="text" inputmode="numeric" value="1" aria-label="quantity" />
+              <button type="button" class="qty-plus">+</button>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block add-btn" type="button" data-id="yama" data-cny="67" data-usd="9.5" data-name-zh="山峦嗅闻垫" data-name-en="Yama Sniff Mat" data-img="images/yama.jpg"><span class="zh">放入购物袋</span><span class="en">Add to bag</span></button>
+          <dl class="specs">
+            <div class="spec"><dt>SKU</dt><dd class="sku-code">QZ-YAMA-SG-M</dd></div>
+            <div class="spec"><dt><span class="zh">材料</span><span class="en">Material</span></dt><dd><span class="zh">美利奴羊毛毡</span><span class="en">Merino wool felt</span></dd></div>
+            <div class="spec"><dt><span class="zh">尺寸</span><span class="en">Size</span></dt><dd class="size-spec"><span class="zh">中 32cm</span><span class="en">M 32cm</span></dd></div>
+            <div class="spec"><dt><span class="zh">护理</span><span class="en">Care</span></dt><dd><span class="zh">冷水手洗，平铺阴干</span><span class="en">Cold hand wash, dry flat</span></dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="wrap pdp" id="nawa">
+        <div class="pdp-frame">
+        <div class="pdp-media" data-gallery data-spin="nawa">
+          <div class="pdp-track">
+            <img class="sku-photo pdp-slide is-on" src="images/nawa-co.jpg" alt="双色棉绳" />
+            <img class="pdp-slide real-shot" src="images/nawa-real.jpg" alt="" />
+          </div>
+          <button type="button" class="pdp-arrow pdp-prev" aria-label="prev">‹</button>
+          <button type="button" class="pdp-arrow pdp-next" aria-label="next">›</button>
+          <div class="pdp-dots"></div>
+        </div>
+        </div>
+        <div class="pdp-info">
+          <p class="eyebrow"><span class="zh">狗</span><span class="en">Dogs</span></p>
+          <h2 class="display pdp-name"><span class="zh">双色棉绳</span><span class="en">Nawa Tug Rope</span><span class="rating" aria-label="4.6 / 5"><span class="stars" style="--score:4.6"><span class="stars-bg">★★★★★</span><span class="stars-fill">★★★★★</span></span><span class="score">4.6</span></span></h2>
+          <p class="pdp-price"><span class="zh">¥42</span><span class="en">$6</span></p>
+          <p class="card-sold"><span class="zh">已售 256</span><span class="en">256 sold</span></p>
+          <p class="zh">三股有机棉绳手工编织，收尾打成圆结，方便衔取。适合室内轻轻拔河，不鼓励真正较劲。棉纤维会慢慢起毛，那是它被爱过的痕迹。</p>
+          <p class="en">Three-ply organic cotton, finished with a round knot that sits well in the mouth. For gentle indoor tug, not a contest of force. It will fuzz. That is the point.</p>
+          <div class="variants" data-prefix="QZ-NAWA" data-cny="42" data-usd="6" data-w-zh="粗度" data-w-en="Thickness">
+            <div class="opt-row">
+              <p class="opt-label"><span class="zh">颜色</span><span class="en">Color</span></p>
+              <div class="swatches">
+                <button type="button" class="swatch is-on" data-opt="color" data-code="CO" data-zh="陶土 / 燕麦" data-en="Clay / oatmeal" data-img="images/nawa-co.jpg" style="--sw:#c45c26" aria-label="Clay"></button>
+                <button type="button" class="swatch" data-opt="color" data-code="MS" data-zh="苔藓 / 沙" data-en="Moss / sand" data-img="images/nawa-ms.jpg" style="--sw:#5b6b4a" aria-label="Moss"></button>
+              </div>
+            </div>
+            <div class="opt-row">
+              <p class="opt-label"><span class="zh">长度</span><span class="en">Length</span></p>
+              <div class="size-opts">
+                <button type="button" class="size-opt" data-opt="size" data-code="28" data-zh="短 28cm" data-en="Short 28cm" data-l="28" data-w="3" data-cny="34.5" data-usd="5">28</button>
+                <button type="button" class="size-opt is-on" data-opt="size" data-code="38" data-zh="长 38cm" data-en="Long 38cm" data-l="38" data-w="3" data-cny="42" data-usd="6">38</button>
+              </div>
+            </div>
+            <p class="sku-line"><span>SKU</span><span class="sku-code">QZ-NAWA-CO-38</span></p>
+          </div>
+          <div class="qty-row">
+            <p class="opt-label"><span class="zh">数量</span><span class="en">Quantity</span></p>
+            <div class="qty" data-qty="1">
+              <button type="button" class="qty-minus">−</button>
+              <input class="qty-num" type="text" inputmode="numeric" value="1" aria-label="quantity" />
+              <button type="button" class="qty-plus">+</button>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block add-btn" type="button" data-id="nawa" data-cny="42" data-usd="6" data-name-zh="双色棉绳" data-name-en="Nawa Tug Rope" data-img="images/nawa.jpg"><span class="zh">放入购物袋</span><span class="en">Add to bag</span></button>
+          <dl class="specs">
+            <div class="spec"><dt>SKU</dt><dd class="sku-code">QZ-NAWA-CO-38</dd></div>
+            <div class="spec"><dt><span class="zh">材料</span><span class="en">Material</span></dt><dd><span class="zh">有机棉</span><span class="en">Organic cotton</span></dd></div>
+            <div class="spec"><dt><span class="zh">尺寸</span><span class="en">Size</span></dt><dd class="size-spec"><span class="zh">长 38cm</span><span class="en">Long 38cm</span></dd></div>
+            <div class="spec"><dt><span class="zh">护理</span><span class="en">Care</span></dt><dd><span class="zh">放入洗衣袋机洗冷水</span><span class="en">Machine wash cold in a bag</span></dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="wrap pdp" id="nezumi">
+        <div class="pdp-frame">
+        <div class="pdp-media" data-gallery data-spin="nezumi">
+          <div class="pdp-track">
+            <img class="sku-photo pdp-slide is-on" src="images/nezumi-wn.jpg" alt="毡毛小鼠" />
+            <img class="pdp-slide real-shot" src="images/nezumi-real.jpg" alt="" />
+          </div>
+          <button type="button" class="pdp-arrow pdp-prev" aria-label="prev">‹</button>
+          <button type="button" class="pdp-arrow pdp-next" aria-label="next">›</button>
+          <div class="pdp-dots"></div>
+        </div>
+        </div>
+        <div class="pdp-info">
+          <p class="eyebrow"><span class="zh">猫</span><span class="en">Cats</span></p>
+          <h2 class="display pdp-name"><span class="zh">毡毛小鼠</span><span class="en">Nezumi Felt Mouse</span><span class="rating" aria-label="4.9 / 5"><span class="stars" style="--score:4.9"><span class="stars-bg">★★★★★</span><span class="stars-fill">★★★★★</span></span><span class="score">4.9</span></span></h2>
+          <p class="pdp-price"><span class="zh">¥24.5</span><span class="en">$3.5</span></p>
+          <p class="card-sold"><span class="zh">已售 412</span><span class="en">412 sold</span></p>
+          <p class="zh">针毡羊毛塑形，耳朵是薄亚麻，尾巴是麻绳。没有塑料眼睛，没有响纸。小小一只，却很像会跑。</p>
+          <p class="en">Needle-felted wool, linen ears, a hemp tail. No plastic eyes, no crinkle. Tiny — and very chaseable.</p>
+          <div class="variants" data-prefix="QZ-NEZU" data-cny="24.5" data-usd="3.5">
+            <div class="opt-row">
+              <p class="opt-label"><span class="zh">颜色</span><span class="en">Color</span></p>
+              <div class="swatches">
+                <button type="button" class="swatch is-on" data-opt="color" data-code="WN" data-zh="核桃" data-en="Walnut" data-img="images/nezumi-wn.jpg" style="--sw:#6b4a32" aria-label="Walnut"></button>
+                <button type="button" class="swatch" data-opt="color" data-code="CR" data-zh="奶油" data-en="Cream" data-img="images/nezumi-cr.jpg" style="--sw:#efe6d6" aria-label="Cream"></button>
+                <button type="button" class="swatch" data-opt="color" data-code="TC" data-zh="陶土" data-en="Terracotta" data-img="images/nezumi-tc.jpg" style="--sw:#c45c26" aria-label="Terracotta"></button>
+              </div>
+            </div>
+            <div class="opt-row">
+              <p class="opt-label"><span class="zh">尺寸</span><span class="en">Size</span></p>
+              <div class="size-opts">
+                <button type="button" class="size-opt is-on" data-opt="size" data-code="11" data-zh="标准 11cm" data-en="Standard 11cm" data-l="11" data-w="4.5" data-cny="24.5" data-usd="3.5">11</button>
+                <button type="button" class="size-opt" data-opt="size" data-code="14" data-zh="大号 14cm" data-en="Large 14cm" data-l="14" data-w="5.5" data-cny="29.5" data-usd="4.25">14</button>
+              </div>
+            </div>
+            <p class="sku-line"><span>SKU</span><span class="sku-code">QZ-NEZU-WN-11</span></p>
+          </div>
+          <div class="qty-row">
+            <p class="opt-label"><span class="zh">数量</span><span class="en">Quantity</span></p>
+            <div class="qty" data-qty="1">
+              <button type="button" class="qty-minus">−</button>
+              <input class="qty-num" type="text" inputmode="numeric" value="1" aria-label="quantity" />
+              <button type="button" class="qty-plus">+</button>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block add-btn" type="button" data-id="nezumi" data-cny="24.5" data-usd="3.5" data-name-zh="毡毛小鼠" data-name-en="Nezumi Felt Mouse" data-img="images/nezumi.jpg"><span class="zh">放入购物袋</span><span class="en">Add to bag</span></button>
+          <dl class="specs">
+            <div class="spec"><dt>SKU</dt><dd class="sku-code">QZ-NEZU-WN-11</dd></div>
+            <div class="spec"><dt><span class="zh">材料</span><span class="en">Material</span></dt><dd><span class="zh">羊毛 / 亚麻 / 麻绳</span><span class="en">Wool, linen, hemp</span></dd></div>
+            <div class="spec"><dt><span class="zh">尺寸</span><span class="en">Size</span></dt><dd class="size-spec"><span class="zh">标准 11cm</span><span class="en">Standard 11cm</span></dd></div>
+            <div class="spec"><dt><span class="zh">护理</span><span class="en">Care</span></dt><dd><span class="zh">局部擦拭，勿浸泡</span><span class="en">Spot clean only</span></dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="wrap pdp" id="wan">
+        <div class="pdp-frame">
+        <div class="pdp-media" data-gallery data-spin="wan">
+          <div class="pdp-track">
+            <img class="sku-photo pdp-slide is-on" src="images/wan-sm.jpg" alt="慢食陶碗" />
+            <img class="pdp-slide real-shot" src="images/wan-real.jpg" alt="" />
+          </div>
+          <button type="button" class="pdp-arrow pdp-prev" aria-label="prev">‹</button>
+          <button type="button" class="pdp-arrow pdp-next" aria-label="next">›</button>
+          <div class="pdp-dots"></div>
+        </div>
+        </div>
+        <div class="pdp-info">
+          <p class="eyebrow"><span class="zh">狗与猫</span><span class="en">Dogs &amp; cats</span></p>
+          <h2 class="display pdp-name"><span class="zh">慢食陶碗</span><span class="en">Wan Puzzle Bowl</span><span class="rating" aria-label="4.7 / 5"><span class="stars" style="--score:4.7"><span class="stars-bg">★★★★★</span><span class="stars-fill">★★★★★</span></span><span class="score">4.7</span></span></h2>
+          <p class="pdp-price"><span class="zh">¥57</span><span class="en">$8</span></p>
+          <p class="card-sold"><span class="zh">已售 86</span><span class="en">86 sold</span></p>
+          <p class="zh">景德镇附近的小窑烧制，釉色是砂与苔藓。碗底有浅浅的脊，粮会停在那里。它不是益智玩具的塑料迷宫，只是一只需要慢慢对待的碗。</p>
+          <p class="en">Fired in a small kiln near Jingdezhen. Sand and moss glaze, a low ridge inside that catches kibble. Not a plastic maze — just a bowl that asks for patience.</p>
+          <div class="variants" data-prefix="QZ-WAN" data-cny="57" data-usd="8">
+            <div class="opt-row">
+              <p class="opt-label"><span class="zh">釉色</span><span class="en">Glaze</span></p>
+              <div class="swatches">
+                <button type="button" class="swatch is-on" data-opt="color" data-code="SM" data-zh="砂苔" data-en="Sand moss" data-img="images/wan-sm.jpg" style="--sw:#8a9a6a" aria-label="Sand moss"></button>
+                <button type="button" class="swatch" data-opt="color" data-code="RW" data-zh="素烧" data-en="Raw clay" data-img="images/wan-rw.jpg" style="--sw:#c9b49a" aria-label="Raw"></button>
+                <button type="button" class="swatch" data-opt="color" data-code="AS" data-zh="烟灰" data-en="Ash" data-img="images/wan-as.jpg" style="--sw:#6e6a64" aria-label="Ash"></button>
+              </div>
+            </div>
+            <div class="opt-row">
+              <p class="opt-label"><span class="zh">口径</span><span class="en">Diameter</span></p>
+              <div class="size-opts">
+                <button type="button" class="size-opt" data-opt="size" data-code="14" data-zh="小 14cm" data-en="S 14cm" data-l="14" data-w="14" data-cny="49.5" data-usd="7">14</button>
+                <button type="button" class="size-opt is-on" data-opt="size" data-code="16" data-zh="中 16cm" data-en="M 16cm" data-l="16" data-w="16" data-cny="57" data-usd="8">16</button>
+              </div>
+            </div>
+            <p class="sku-line"><span>SKU</span><span class="sku-code">QZ-WAN-SM-16</span></p>
+          </div>
+          <div class="qty-row">
+            <p class="opt-label"><span class="zh">数量</span><span class="en">Quantity</span></p>
+            <div class="qty" data-qty="1">
+              <button type="button" class="qty-minus">−</button>
+              <input class="qty-num" type="text" inputmode="numeric" value="1" aria-label="quantity" />
+              <button type="button" class="qty-plus">+</button>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block add-btn" type="button" data-id="wan" data-cny="57" data-usd="8" data-name-zh="慢食陶碗" data-name-en="Wan Puzzle Bowl" data-img="images/wan.jpg"><span class="zh">放入购物袋</span><span class="en">Add to bag</span></button>
+          <dl class="specs">
+            <div class="spec"><dt>SKU</dt><dd class="sku-code">QZ-WAN-SM-16</dd></div>
+            <div class="spec"><dt><span class="zh">材料</span><span class="en">Material</span></dt><dd><span class="zh">手工炻器</span><span class="en">Handmade stoneware</span></dd></div>
+            <div class="spec"><dt><span class="zh">尺寸</span><span class="en">Size</span></dt><dd class="size-spec"><span class="zh">中 16cm</span><span class="en">M 16cm</span></dd></div>
+            <div class="spec"><dt><span class="zh">护理</span><span class="en">Care</span></dt><dd><span class="zh">可洗碗机，避免骤冷骤热</span><span class="en">Dishwasher safe; avoid thermal shock</span></dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="wrap pdp" id="fukuro">
+        <div class="pdp-frame">
+        <div class="pdp-media" data-gallery data-spin="fukuro">
+          <div class="pdp-track">
+            <img class="sku-photo pdp-slide is-on" src="images/fukuro-rw.jpg" alt="帆布藏宝袋" />
+            <img class="pdp-slide real-shot" src="images/fukuro-real.jpg" alt="" />
+          </div>
+          <button type="button" class="pdp-arrow pdp-prev" aria-label="prev">‹</button>
+          <button type="button" class="pdp-arrow pdp-next" aria-label="next">›</button>
+          <div class="pdp-dots"></div>
+        </div>
+        </div>
+        <div class="pdp-info">
+          <p class="eyebrow"><span class="zh">狗与猫</span><span class="en">Dogs &amp; cats</span></p>
+          <h2 class="display pdp-name"><span class="zh">帆布藏宝袋</span><span class="en">Fukuro Burrow Bag</span><span class="rating" aria-label="4.5 / 5"><span class="stars" style="--score:4.5"><span class="stars-bg">★★★★★</span><span class="stars-fill">★★★★★</span></span><span class="score">4.5</span></span></h2>
+          <p class="pdp-price"><span class="zh">¥49.5</span><span class="en">$7</span></p>
+          <p class="card-sold"><span class="zh">已售 64</span><span class="en">64 sold</span></p>
+          <p class="zh">未漂白帆布，陶土色缝线，袋口不封死。把小鼠、棉球或冻干塞进去，让他们用鼻子和爪子一层一层翻。用旧了会更软，也更好看。</p>
+          <p class="en">Unbleached canvas, terracotta stitching, an open mouth. Tuck in a mouse, a wool ball, or freeze-dried treats. It gets softer — and better — with use.</p>
+          <div class="variants" data-prefix="QZ-FUKU" data-cny="49.5" data-usd="7">
+            <div class="opt-row">
+              <p class="opt-label"><span class="zh">颜色</span><span class="en">Color</span></p>
+              <div class="swatches">
+                <button type="button" class="swatch is-on" data-opt="color" data-code="RW" data-zh="原色" data-en="Raw" data-img="images/fukuro-rw.jpg" style="--sw:#d8cbb8" aria-label="Raw"></button>
+                <button type="button" class="swatch" data-opt="color" data-code="TC" data-zh="陶土线" data-en="Terracotta stitch" data-img="images/fukuro-tc.jpg" style="--sw:#c45c26" aria-label="Terracotta"></button>
+                <button type="button" class="swatch" data-opt="color" data-code="IK" data-zh="墨色" data-en="Ink" data-img="images/fukuro-ik.jpg" style="--sw:#2c2a27" aria-label="Ink"></button>
+              </div>
+            </div>
+            <div class="opt-row">
+              <p class="opt-label"><span class="zh">尺寸</span><span class="en">Size</span></p>
+              <div class="size-opts">
+                <button type="button" class="size-opt" data-opt="size" data-code="22" data-zh="小 22cm" data-en="S 22cm" data-l="22" data-w="16" data-cny="42" data-usd="6">22</button>
+                <button type="button" class="size-opt is-on" data-opt="size" data-code="28" data-zh="中 28cm" data-en="M 28cm" data-l="28" data-w="20" data-cny="49.5" data-usd="7">28</button>
+              </div>
+            </div>
+            <p class="sku-line"><span>SKU</span><span class="sku-code">QZ-FUKU-RW-28</span></p>
+          </div>
+          <div class="qty-row">
+            <p class="opt-label"><span class="zh">数量</span><span class="en">Quantity</span></p>
+            <div class="qty" data-qty="1">
+              <button type="button" class="qty-minus">−</button>
+              <input class="qty-num" type="text" inputmode="numeric" value="1" aria-label="quantity" />
+              <button type="button" class="qty-plus">+</button>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block add-btn" type="button" data-id="fukuro" data-cny="49.5" data-usd="7" data-name-zh="帆布藏宝袋" data-name-en="Fukuro Burrow Bag" data-img="images/fukuro.jpg"><span class="zh">放入购物袋</span><span class="en">Add to bag</span></button>
+          <dl class="specs">
+            <div class="spec"><dt>SKU</dt><dd class="sku-code">QZ-FUKU-RW-28</dd></div>
+            <div class="spec"><dt><span class="zh">材料</span><span class="en">Material</span></dt><dd><span class="zh">原色帆布</span><span class="en">Raw canvas</span></dd></div>
+            <div class="spec"><dt><span class="zh">尺寸</span><span class="en">Size</span></dt><dd class="size-spec"><span class="zh">中 28cm</span><span class="en">M 28cm</span></dd></div>
+            <div class="spec"><dt><span class="zh">护理</span><span class="en">Care</span></dt><dd><span class="zh">冷水手洗，勿烘干</span><span class="en">Cold hand wash, no dryer</span></dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="wrap pdp" id="kumo">
+        <div class="pdp-frame">
+        <div class="pdp-media" data-gallery data-spin="kumo">
+          <div class="pdp-track">
+            <img class="sku-photo pdp-slide is-on" src="images/kumo-ln.jpg" alt="云朵安抚枕" />
+            <img class="pdp-slide real-shot" src="images/kumo-real.jpg" alt="" />
+          </div>
+          <button type="button" class="pdp-arrow pdp-prev" aria-label="prev">‹</button>
+          <button type="button" class="pdp-arrow pdp-next" aria-label="next">›</button>
+          <div class="pdp-dots"></div>
+        </div>
+        </div>
+        <div class="pdp-info">
+          <p class="eyebrow"><span class="zh">狗与猫</span><span class="en">Dogs &amp; cats</span></p>
+          <h2 class="display pdp-name"><span class="zh">云朵安抚枕</span><span class="en">Kumo Cloud Cushion</span><span class="rating" aria-label="4.8 / 5"><span class="stars" style="--score:4.8"><span class="stars-bg">★★★★★</span><span class="stars-fill">★★★★★</span></span><span class="score">4.8</span></span></h2>
+          <p class="pdp-price"><span class="zh">¥62</span><span class="en">$8.75</span></p>
+          <p class="card-sold"><span class="zh">已售 91</span><span class="en">91 sold</span></p>
+          <p class="zh">云的轮廓故意不对称。面料是未染色亚麻，填充是回收棉。它可以当午睡枕，也可以被轻轻咬着走来走去。如果它变扁了，揉一揉就好。</p>
+          <p class="en">The outline is deliberately uneven. Undyed linen, recycled-cotton fill. A nap pillow, or something to carry from room to room. If it flattens, give it a squeeze.</p>
+          <div class="variants" data-prefix="QZ-KUMO" data-cny="62" data-usd="8.75">
+            <div class="opt-row">
+              <p class="opt-label"><span class="zh">颜色</span><span class="en">Color</span></p>
+              <div class="swatches">
+                <button type="button" class="swatch is-on" data-opt="color" data-code="LN" data-zh="原色亚麻" data-en="Natural linen" data-img="images/kumo-ln.jpg" style="--sw:#d8cbb8" aria-label="Linen"></button>
+                <button type="button" class="swatch" data-opt="color" data-code="MS" data-zh="雾灰" data-en="Mist" data-img="images/kumo-ms.jpg" style="--sw:#b7b1a8" aria-label="Mist"></button>
+                <button type="button" class="swatch" data-opt="color" data-code="BL" data-zh="陶粉" data-en="Blush" data-img="images/kumo-bl.jpg" style="--sw:#d4a090" aria-label="Blush"></button>
+              </div>
+            </div>
+            <div class="opt-row">
+              <p class="opt-label"><span class="zh">尺寸</span><span class="en">Size</span></p>
+              <div class="size-opts">
+                <button type="button" class="size-opt" data-opt="size" data-code="S" data-zh="小 22cm" data-en="S 22cm" data-l="22" data-w="18" data-cny="49.5" data-usd="7">S</button>
+                <button type="button" class="size-opt is-on" data-opt="size" data-code="M" data-zh="中 26cm" data-en="M 26cm" data-l="26" data-w="21" data-cny="62" data-usd="8.75">M</button>
+                <button type="button" class="size-opt" data-opt="size" data-code="L" data-zh="大 34cm" data-en="L 34cm" data-l="34" data-w="27" data-cny="74.5" data-usd="10.5">L</button>
+              </div>
+            </div>
+            <p class="sku-line"><span>SKU</span><span class="sku-code">QZ-KUMO-LN-M</span></p>
+          </div>
+          <div class="qty-row">
+            <p class="opt-label"><span class="zh">数量</span><span class="en">Quantity</span></p>
+            <div class="qty" data-qty="1">
+              <button type="button" class="qty-minus">−</button>
+              <input class="qty-num" type="text" inputmode="numeric" value="1" aria-label="quantity" />
+              <button type="button" class="qty-plus">+</button>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block add-btn" type="button" data-id="kumo" data-cny="62" data-usd="8.75" data-name-zh="云朵安抚枕" data-name-en="Kumo Cloud Cushion" data-img="images/kumo.jpg"><span class="zh">放入购物袋</span><span class="en">Add to bag</span></button>
+          <dl class="specs">
+            <div class="spec"><dt>SKU</dt><dd class="sku-code">QZ-KUMO-LN-M</dd></div>
+            <div class="spec"><dt><span class="zh">材料</span><span class="en">Material</span></dt><dd><span class="zh">亚麻 / 回收棉</span><span class="en">Linen, recycled cotton</span></dd></div>
+            <div class="spec"><dt><span class="zh">尺寸</span><span class="en">Size</span></dt><dd class="size-spec"><span class="zh">中 26cm</span><span class="en">M 26cm</span></dd></div>
+            <div class="spec"><dt><span class="zh">护理</span><span class="en">Care</span></dt><dd><span class="zh">外套可拆，冷水手洗</span><span class="en">Cover removable; cold hand wash</span></dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="wrap about-hero">
+          <p class="section-kicker"><span class="zh">关于我们</span><span class="en">About us</span></p>
+          <h2 class="display">
+            <span class="zh">趣爪创新宠物用品有限公司</span>
+            <span class="en">Playpaw Pet Products Co., Ltd.</span>
+          </h2>
+        </div>
+        <div class="wrap about-grid">
+          <img src="images/atelier.jpg" alt="工坊里缝制羊毛玩具" />
+          <div class="about-copy">
+            <p class="zh">趣是一起玩，爪是它踩过地板的声音。智创是先把玩法想明白，再用羊毛、棉绳和陶做出来。对外英文名是 Playpaw，外国人一眼能读。</p>
+            <p class="en">Qu is play; zhao is the paw. Inventive play means we design the game first, then make it. Overseas, the name is Playpaw — easy to read, easy to say.</p>
+            <p class="zh">羊毛毡在浙江，陶碗在景德镇附近，木头在东阳车。每批不多，卖完再做，不赶。</p>
+            <p class="en">Felt in Zhejiang, bowls near Jingdezhen, wood turned in Dongyang. Small batches. When one run is gone, we make the next — no rush.</p>
+            <p class="zh">配送：中国大陆满 150 元起送。商品合计未满 299 元加收 8 元配送费，满 299 元免配送费。海外按实际计。七日内未使用可退。已经玩过的，就留给它吧。</p>
+            <p class="en">Shipping: mainland orders start from ¥150. Under ¥299, a ¥8 delivery fee applies; ¥299 and above ships free. International shipping calculated separately. Unused returns within seven days. If they’ve already played with it, keep it.</p>
+            <p class="zh">隐私：订单与账户信息只用于发货和联系，不会出售、出租或提供给无关第三方。您可来信要求查阅或删除个人资料。详见<button type="button" class="privacy-link" data-open-privacy>隐私保护</button>。</p>
+            <p class="en">Privacy: order and account details are used only to ship and reach you. We do not sell, rent, or give them to unrelated parties. See <button type="button" class="privacy-link" data-open-privacy>Privacy</button>.</p>
+          </div>
+        </div>
+        <div class="wrap values">
+          <article class="value">
+            <h3 class="display"><span class="zh">材料</span><span class="en">Materials</span></h3>
+            <p class="zh">羊毛、亚麻、棉、木头和陶，摸得到，也放心咬。没有会响的塑料芯片。</p>
+            <p class="en">Wool, linen, cotton, wood, and clay — nice to touch, fine to chew. No sound chips.</p>
+          </article>
+          <article class="value">
+            <h3 class="display"><span class="zh">节奏</span><span class="en">Pace</span></h3>
+            <p class="zh">小炉小批就能做，先让它玩起来再加量。卖完了等下一炉，不赶着铺货。</p>
+            <p class="en">Small kiln batches: start small, then make more. When it’s gone, we wait — no rush to flood the shelf.</p>
+          </article>
+          <article class="value">
+            <h3 class="display"><span class="zh">使用</span><span class="en">Use</span></h3>
+            <p class="zh">请陪在旁边玩。细小零件不适合咬得很凶的大型犬。</p>
+            <p class="en">Stay close while they play. Small parts are not for heavy chewers.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top:0">
+        <div class="wrap split">
+          <img src="images/atelier-shelf.jpg" alt="工坊架子上的完成玩物" />
+          <div class="split-copy">
+            <p class="section-kicker"><span class="zh">关于趣爪</span><span class="en">About Playpaw</span></p>
+            <h2 class="display">
+              <span class="zh">做好玩的，也做得安心。</span>
+              <span class="en">Made to play with — and to feel good about.</span>
+            </h2>
+            <p class="zh">我们做嗅闻、啃咬和安抚。羊毛从牧场来，陶从窑里来，木头车圆，帆布带着褶皱。</p>
+            <p class="en">Sniff, tug, rest. Wool from the pasture, clay from the kiln, wood turned round, canvas left a little wrinkled.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer-grid">
+        <div>
+          <div class="brand">
+            <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="currentColor"/><circle cx="11" cy="11" r="3" fill="#F3EEE6"/><circle cx="21" cy="11" r="3" fill="#F3EEE6"/><circle cx="8" cy="17.5" r="2.4" fill="#F3EEE6"/><circle cx="24" cy="17.5" r="2.4" fill="#F3EEE6"/><ellipse cx="16" cy="22" rx="5" ry="4.2" fill="#F3EEE6"/></svg>
+            <span class="zh">趣爪</span><span class="en">Playpaw</span>
+          </div>
+          <p class="company-full">
+            <span class="zh">趣爪创新宠物用品有限公司</span>
+            <span class="en">Playpaw Pet Products Co., Ltd.</span>
+          </p>
+          <p>
+            <span class="zh">陪狗和猫好好玩一玩。</span>
+            <span class="en">For dogs and cats who just want to play.</span>
+          </p>
+        </div>
+        <div>
+          <h4><span class="zh">选物</span><span class="en">Shop</span></h4>
+          <a href="#hot"><span class="zh">热卖</span><span class="en">Bestsellers</span></a>
+          <a href="#new"><span class="zh">新品</span><span class="en">New</span></a>
+          <a href="#yama"><span class="zh">山峦嗅闻垫</span><span class="en">Yama Sniff Mat</span></a>
+          <a href="#kumo"><span class="zh">云朵安抚枕</span><span class="en">Kumo Cloud Cushion</span></a>
+        </div>
+        <div>
+          <h4><span class="zh">公司</span><span class="en">Company</span></h4>
+          <a href="#about"><span class="zh">关于我们</span><span class="en">About us</span></a>
+          <a href="#privacy" data-open-privacy><span class="zh">隐私保护</span><span class="en">Privacy</span></a>
+          <a href="checkout.html"><span class="zh">配送与退换</span><span class="en">Shipping &amp; returns</span></a>
+        </div>
+        <div>
+          <h4><span class="zh">联系</span><span class="en">Contact</span></h4>
+          <a href="mailto:hello@quzhao.com">hello@quzhao.com</a>
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="wordmark"><span class="zh">趣爪 · 智创</span><span class="en">PLAYPAW</span></div>
+        <div class="legal">
+          <span>© 2026 <span class="zh">趣爪创新宠物用品有限公司</span><span class="en">Playpaw Pet Products Co., Ltd.</span></span>
+          <a href="#privacy" data-open-privacy><span class="zh">个人信息仅用于发货与联系，不会对外出售</span><span class="en">Personal data is used only to ship and reach you — never sold</span></a>
+        </div>
+      </div>
+    </footer>
+
+    <div class="welcome" id="welcome" hidden>
+      <div class="welcome-card">
+        <button type="button" class="welcome-close" id="welcomeClose" aria-label="close">×</button>
+        <div class="welcome-offer" id="welcomeOffer">
+          <div class="welcome-visual">
+            <img src="https://cdn11.bigcommerce.com/s-k3kxaf4rop/images/stencil/original/image-manager/website-category-cards-dog.png?t=1754976599" alt="" />
+            <span class="welcome-badge">
+              <em>15%</em>
+              <small><span class="zh">OFF</span><span class="en">OFF</span></small>
+            </span>
+          </div>
+          <div class="welcome-copy">
+            <p class="welcome-kicker"><span class="zh">初回特典</span><span class="en">First visit</span></p>
+            <h2 class="display"><span class="zh">第一次购买<br />立减 15%</span><span class="en">15% off<br />your first order</span></h2>
+            <p class="welcome-text" id="welcomeOfferText"><span class="zh">登录或注册后，第一单按 85 折结算。嗅闻垫、陶碗与安抚枕均适用。</span><span class="en">Log in or register for 15% off your first bag.</span></p>
+            <p class="privacy-note"><span class="zh">我们仅将您的称呼、邮箱用于登录与发货通知，不会出售或提供给第三方。密码仅保存在您的浏览器中。<button type="button" class="privacy-link" data-open-privacy>查看隐私保护</button></span><span class="en">We use your name and email only for sign-in and order notices. We do not sell or share them. <button type="button" class="privacy-link" data-open-privacy>Privacy</button></span></p>
+            <div class="welcome-actions">
+              <button type="button" class="btn btn-primary" id="welcomeLogin" onclick="window.qzShowAuth('login')"><span class="zh">登录</span><span class="en">Log in</span></button>
+              <button type="button" class="btn btn-ghost" id="welcomeReg" onclick="window.qzShowAuth('reg')"><span class="zh">注册</span><span class="en">Register</span></button>
+              <button type="button" class="btn btn-primary" id="welcomeOk" hidden><span class="zh">确定</span><span class="en">OK</span></button>
+            </div>
+          </div>
+        </div>
+        <form class="welcome-form" id="welcomeLoginForm" hidden>
+          <h3 class="display"><span class="zh">登录</span><span class="en">Log in</span></h3>
+          <p class="opt-label"><span class="zh">使用手机号登录</span><span class="en">Log in with phone</span></p>
+          <label class="field">
+            <span class="zh">手机号码</span><span class="en">Phone</span>
+            <input type="tel" name="phone" required maxlength="11" inputmode="numeric" autocomplete="tel" />
+          </label>
+          <div class="field">
+            <span class="zh">验证码</span><span class="en">Code</span>
+            <div class="code-row">
+              <input type="text" name="code" required maxlength="6" inputmode="numeric" autocomplete="one-time-code" />
+              <button type="button" class="btn btn-ghost" id="sendCodeBtnLogin"><span class="zh">发送验证码</span><span class="en">Send code</span></button>
+            </div>
+            <p class="code-hint" id="codeHintLogin" hidden></p>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit"><span class="zh">登录并领取优惠</span><span class="en">Log in &amp; claim</span></button>
+          <p class="privacy-note"><span class="zh">还没有账号？<button type="button" class="privacy-link" id="loginGoReg">去注册</button></span><span class="en">No account yet? <button type="button" class="privacy-link" id="loginGoRegEn">Register</button></span></p>
+          <p class="privacy-note"><span class="zh">继续即表示您同意：个人信息仅用于账户与配送，不会对外共享。<button type="button" class="privacy-link" data-open-privacy>隐私保护</button></span><span class="en">By continuing, you agree your details are used only for your account and delivery. <button type="button" class="privacy-link" data-open-privacy>Privacy</button></span></p>
+        </form>
+        <form class="welcome-form" id="welcomeRegForm" hidden>
+          <h3 class="display"><span class="zh">注册</span><span class="en">Register</span></h3>
+          <p class="opt-label"><span class="zh">选择头像，也可上传自己的照片</span><span class="en">Pick an avatar, or upload your photo</span></p>
+          <div class="avatar-pick" data-pick="reg"></div>
+          <input type="hidden" name="avatar" value="images/pet-kumo.jpg" />
+          <label class="field"><span class="zh">称呼</span><span class="en">Name</span><input type="text" name="name" required /></label>
+          <label class="field"><span class="zh">邮箱</span><span class="en">Email</span><input type="email" name="email" required /></label>
+          <label class="field"><span class="zh">手机号码</span><span class="en">Phone</span><input type="tel" name="phone" required maxlength="11" inputmode="numeric" autocomplete="tel" /></label>
+          <div class="field">
+            <span class="zh">验证码</span><span class="en">Code</span>
+            <div class="code-row">
+              <input type="text" name="code" required maxlength="6" inputmode="numeric" autocomplete="one-time-code" />
+              <button type="button" class="btn btn-ghost" id="sendCodeBtn"><span class="zh">发送验证码</span><span class="en">Send code</span></button>
+            </div>
+            <p class="code-hint" id="codeHint" hidden></p>
+          </div>
+          <label class="field"><span class="zh">密码</span><span class="en">Password</span><input type="password" name="password" required /></label>
+          <button class="btn btn-primary btn-block" type="submit"><span class="zh">注册并领取优惠</span><span class="en">Register &amp; claim</span></button>
+          <p class="privacy-note"><span class="zh">已有账号？<button type="button" class="privacy-link" id="regGoLogin">去登录</button></span><span class="en">Already registered? <button type="button" class="privacy-link" id="regGoLoginEn">Log in</button></span></p>
+          <p class="privacy-note"><span class="zh">继续即表示您同意：个人信息仅用于账户与配送，不会对外共享。您可随时要求删除资料。<button type="button" class="privacy-link" data-open-privacy>隐私保护</button></span><span class="en">By continuing, you agree your details are used only for your account and delivery. <button type="button" class="privacy-link" data-open-privacy>Privacy</button></span></p>
+        </form>
+        <div class="welcome-form privacy-body" id="welcomePrivacy" hidden>
+          <p class="welcome-kicker"><span class="zh">隐私保护</span><span class="en">Privacy</span></p>
+          <h3 class="display"><span class="zh">我们保护您的个人信息</span><span class="en">We protect your personal information</span></h3>
+          <p class="welcome-text"><span class="zh">趣爪仅收集下单、登录与评论所需的最少信息：称呼、邮箱、电话、收件地址，以及您自愿写下的评价。这些信息只用于账户识别、发货通知与售后联系。</span><span class="en">Playpaw collects only what an order, sign-in, or review needs: name, email, phone, shipping address, and comments you choose to post. We use them only to identify your account, ship, and follow up.</span></p>
+          <p class="welcome-text"><span class="zh">我们不会出售、出租或向无关第三方提供您的个人资料。本站为静态页面，登录与评论保存在您自己的浏览器中，不会上传到公共服务器。密码不会以明文展示。</span><span class="en">We do not sell, rent, or give your details to unrelated parties. This is a static site: sign-in and reviews stay in your browser and are not uploaded to a public server. Passwords are never shown in plain text.</span></p>
+          <p class="welcome-text"><span class="zh">您可随时要求查阅或删除资料。来信 hello@quzhao.com，我们会配合处理。发表评论时，仅您填写的称呼会随内容公开显示。</span><span class="en">You may ask to review or delete your data at any time by writing to hello@quzhao.com. On a posted review, only the name you enter is shown with the comment.</span></p>
+          <div class="welcome-actions">
+            <button type="button" class="btn btn-primary" id="privacyBack"><span class="zh">返回继续</span><span class="en">Continue</span></button>
+          </div>
+        </div>
+        <div class="welcome-form welcome-profile" id="welcomeProfile" hidden>
+          <p class="welcome-kicker"><span class="zh">我的账户</span><span class="en">My account</span></p>
+          <h3 class="display"><span class="zh">用户详情</span><span class="en">User details</span></h3>
+          <div class="profile-head">
+            <img id="profileAvatar" src="images/pet-kumo.jpg" alt="" />
+            <div>
+              <p class="profile-name" id="profileName"></p>
+              <p class="profile-sub" id="profileEmail"></p>
+            </div>
+          </div>
+          <div class="profile-row">
+            <p class="profile-label"><span class="zh">手机</span><span class="en">Phone</span></p>
+            <p class="profile-value profile-empty" id="profilePhone">—</p>
+          </div>
+          <div class="welcome-actions">
+            <button type="button" class="btn btn-primary" id="profileChangeAvatar"><span class="zh">更换头像</span><span class="en">Change avatar</span></button>
+            <button type="button" class="btn btn-ghost" id="profileClose"><span class="zh">返回</span><span class="en">Close</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="clear-account.js?v=4"></script>
+    <script>
+      (function () {
+        function pane(id, on, shown) {
+          var el = document.getElementById(id);
+          if (!el) return;
+          if (on) {
+            el.hidden = false;
+            el.removeAttribute("hidden");
+            el.style.display = shown || "block";
+          } else {
+            el.hidden = true;
+            el.setAttribute("hidden", "");
+            el.style.display = "none";
+          }
+        }
+        window.qzIsLoggedIn = function () {
+          try {
+            var raw = localStorage.getItem("qz-user");
+            var user = raw ? JSON.parse(raw) : null;
+            return !!(user && user.name);
+          } catch (err) {
+            return false;
+          }
+        };
+        window.qzSyncOfferActions = function () {
+          var loginBtn = document.getElementById("welcomeLogin");
+          var regBtn = document.getElementById("welcomeReg");
+          var okBtn = document.getElementById("welcomeOk");
+          var text = document.getElementById("welcomeOfferText");
+          var loggedIn = window.qzIsLoggedIn();
+          if (loginBtn) loginBtn.hidden = loggedIn;
+          if (regBtn) regBtn.hidden = loggedIn;
+          if (okBtn) okBtn.hidden = !loggedIn;
+          if (text) {
+            text.innerHTML = loggedIn
+              ? '<span class="zh">你已登录。第一单按 85 折结算，嗅闻垫、陶碗与安抚枕均适用。</span><span class="en">You are signed in. Your first order is 15% off.</span>'
+              : '<span class="zh">登录或注册后，第一单按 85 折结算。嗅闻垫、陶碗与安抚枕均适用。</span><span class="en">Log in or register for 15% off your first bag.</span>';
+          }
+        };
+        window.qzShowAuth = function (which) {
+          var box = document.getElementById("welcome");
+          if (!box) return;
+          box.hidden = false;
+          box.removeAttribute("hidden");
+          box.style.display = "flex";
+          box.className = which === "offer" ? "welcome" : "welcome is-auth";
+          pane("welcomeOffer", which === "offer", "grid");
+          pane("welcomeLoginForm", which === "login", "block");
+          pane("welcomeRegForm", which === "reg", "block");
+          pane("welcomePrivacy", which === "privacy", "block");
+          pane("welcomeProfile", which === "profile", "block");
+          if (which === "offer" && window.qzSyncOfferActions) window.qzSyncOfferActions();
+          if (which === "profile" && window.qzRenderProfile) {
+            window.qzRenderProfile();
+          }
+        };
+        window.qzHideAuth = function () {
+          var box = document.getElementById("welcome");
+          if (!box) return;
+          box.hidden = true;
+          box.setAttribute("hidden", "");
+          box.style.display = "none";
+        };
+        window.qzCloseAuth = function () {
+          window.qzHideAuth();
+          try {
+            localStorage.setItem("qz-welcome-seen-15", "1");
+            localStorage.setItem("qz-first-off", "15");
+          } catch (err) {}
+        };
+        var login = document.getElementById("welcomeLogin");
+        var reg = document.getElementById("welcomeReg");
+        var closeBtn = document.getElementById("welcomeClose");
+        var header = document.getElementById("headerLoginBtn");
+        var headerReg = document.getElementById("headerRegBtn");
+        var back = document.getElementById("privacyBack");
+        var profileBack = document.getElementById("profileClose");
+        if (login) login.onclick = function () { window.qzShowAuth("login"); };
+        if (reg) reg.onclick = function () { window.qzShowAuth("reg"); };
+        if (closeBtn) closeBtn.onclick = function () { window.qzCloseAuth(); };
+        if (header) {
+          header.onclick = function (e) {
+            e.stopPropagation();
+            window.qzShowAuth("login");
+          };
+        }
+        if (headerReg) {
+          headerReg.onclick = function (e) {
+            e.stopPropagation();
+            window.qzShowAuth("reg");
+          };
+        }
+        if (back) {
+          back.onclick = function () {
+            window.qzShowAuth("offer");
+          };
+        }
+        if (profileBack) {
+          profileBack.onclick = function () {
+            window.qzHideAuth();
+          };
+        }
+        var okBtn = document.getElementById("welcomeOk");
+        if (okBtn) okBtn.onclick = function () { window.qzCloseAuth(); };
+        if (window.qzSyncOfferActions) window.qzSyncOfferActions();
+        if (!window.qzIsLoggedIn()) window.qzShowAuth("offer");
+      })();
+    </script>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        (function () {
+          var html = document.documentElement;
+          var langBtn = document.getElementById("langBtn");
+          var CART_KEY = "qz-cart-v1";
+          var en = false;
+
+          function getStoredCart() {
+            try {
+              var raw = localStorage.getItem(CART_KEY);
+              var list = raw ? JSON.parse(raw) : [];
+              if (!Array.isArray(list)) return [];
+              return list;
+            } catch (e) {
+              return [];
+            }
+          }
+
+          function saveCart(next) {
+            try {
+              localStorage.setItem(CART_KEY, JSON.stringify(Array.isArray(next) ? next : []));
+            } catch (e) {}
+          }
+
+          var cart = getStoredCart();
+
+          function isEn() {
+            return window.qzIsZh ? !window.qzIsZh() : en;
+          }
+          function L(zh, enText) {
+            return window.qzT ? window.qzT(zh, { en: enText }) : isEn() ? enText : zh;
+          }
+
+        function paintLang() {
+          if (window.qzApplyLang) window.qzApplyLang(window.qzLang ? window.qzLang() : (en ? "en" : "zh"));
+          if (window.qzHydrateLang) window.qzHydrateLang();
+          drawBag();
+        }
+
+        window.qzAfterLang = function () {
+          drawBag();
+        };
+
+        function money(item, qty) {
+          qty = qty || 1;
+          return isEn() ? "$" + item.usd * qty : "¥" + item.cny * qty;
+        }
+
+        function chosen(box, name) {
+          var nodes = box.querySelectorAll('[data-opt="' + name + '"]');
+          var i;
+          for (i = 0; i < nodes.length; i++) {
+            if ((" " + nodes[i].className + " ").indexOf(" is-on ") !== -1) return nodes[i];
+          }
+          return nodes[0];
+        }
+
+        function syncBox(box) {
+          var color = chosen(box, "color");
+          var size = chosen(box, "size");
+          if (!color || !size) return;
+          var sku = box.getAttribute("data-prefix") + "-" + color.getAttribute("data-code") + "-" + size.getAttribute("data-code");
+          var cny = size.getAttribute("data-cny") || box.getAttribute("data-cny");
+          var usd = size.getAttribute("data-usd") || box.getAttribute("data-usd");
+          var codes = box.querySelectorAll(".sku-code");
+          var i;
+          for (i = 0; i < codes.length; i++) codes[i].textContent = sku;
+          var parent = box.parentNode;
+          var extra = parent.querySelectorAll(".sku-code");
+          for (i = 0; i < extra.length; i++) extra[i].textContent = sku;
+          var price = parent.querySelector(".pdp-price");
+          if (price) {
+            price.innerHTML = '<span class="zh">¥' + cny + '</span><span class="en">$' + usd + "</span>";
+          }
+          var sizeSpec = parent.querySelector(".size-spec");
+          var len = size.getAttribute("data-l") || "";
+          var wid = size.getAttribute("data-w") || "";
+          var wNameZh = box.getAttribute("data-w-zh") || "宽";
+          var wNameEn = box.getAttribute("data-w-en") || "W";
+          if (sizeSpec) {
+            if (len && wid) {
+              sizeSpec.innerHTML =
+                '<span class="zh">长 ' +
+                len +
+                "cm · " +
+                wNameZh +
+                " " +
+                wid +
+                'cm</span><span class="en">L ' +
+                len +
+                "cm · " +
+                wNameEn +
+                " " +
+                wid +
+                "cm</span>";
+            } else {
+              sizeSpec.innerHTML =
+                '<span class="zh">' +
+                size.getAttribute("data-zh") +
+                '</span><span class="en">' +
+                size.getAttribute("data-en") +
+                "</span>";
+            }
+          }
+          var section = box.parentNode;
+          while (section && (" " + section.className + " ").indexOf(" pdp ") === -1) {
+            section = section.parentNode;
+          }
+          if (section) {
+            var media = section.querySelector(".pdp-media");
+            var photo = section.querySelector(".pdp-media .sku-photo");
+            var colorSrc = color.getAttribute("data-img") || "";
+            var sizeCode = (size.getAttribute("data-code") || "").toLowerCase();
+            var nextSrc = colorSrc.replace(/\.jpg$/i, "-" + sizeCode + ".jpg");
+            if (photo && nextSrc && photo.getAttribute("src") !== nextSrc) {
+              photo.style.transition = "opacity 0.35s ease";
+              photo.style.opacity = "0.4";
+              photo.onerror = function () {
+                photo.onerror = null;
+                photo.src = colorSrc;
+                photo.style.opacity = "1";
+              };
+              photo.onload = function () {
+                photo.onload = null;
+                photo.style.opacity = "1";
+              };
+              photo.src = nextSrc;
+            } else if (photo) {
+              photo.style.opacity = "1";
+              photo.style.transform = "none";
+            }
+            if (media) {
+              var leftover = media.querySelectorAll(".size-compare");
+              var li;
+              for (li = 0; li < leftover.length; li++) leftover[li].parentNode.removeChild(leftover[li]);
+            }
+            if (media && len && wid) {
+              var guide = media.querySelector(".size-guide");
+              if (!guide) {
+                guide = document.createElement("div");
+                guide.className = "size-guide";
+                media.appendChild(guide);
+              }
+              if (!guide.querySelector(".size-guide-thick")) {
+                guide.innerHTML =
+                  '<div class="size-guide-w"><span class="size-guide-num"></span></div><div class="size-guide-thick"><span class="size-guide-num"></span></div><div class="size-guide-l"><span class="size-guide-num"></span></div>';
+              }
+              var maxL = 0;
+              var maxW = 0;
+              var sizeOpts = box.querySelectorAll('[data-opt="size"]');
+              var si;
+              for (si = 0; si < sizeOpts.length; si++) {
+                var optL = parseFloat(sizeOpts[si].getAttribute("data-l") || "0");
+                var optW = parseFloat(sizeOpts[si].getAttribute("data-w") || "0");
+                if (optL > maxL) maxL = optL;
+                if (optW > maxW) maxW = optW;
+              }
+              var curL = parseFloat(len) || 0;
+              var curW = parseFloat(wid) || 0;
+              guide.style.setProperty("--l-scale", maxL ? String(Math.max(0.55, curL / maxL)) : "1");
+              guide.style.setProperty("--w-scale", maxW ? String(Math.max(0.55, curW / maxW)) : "1");
+              var isThick = wNameZh === "粗度" || box.getAttribute("data-w-zh") === "粗度";
+              if (isThick) guide.classList.add("is-thick");
+              else guide.classList.remove("is-thick");
+              var wLabel = guide.querySelector(".size-guide-w .size-guide-num");
+              var tLabel = guide.querySelector(".size-guide-thick .size-guide-num");
+              var lLabel = guide.querySelector(".size-guide-l .size-guide-num");
+              var wHtml =
+                '<span class="zh">' + wNameZh + " " + wid + 'cm</span><span class="en">' + wNameEn + " " + wid + "cm</span>";
+              if (wLabel) wLabel.innerHTML = wHtml;
+              if (tLabel) tLabel.innerHTML = wHtml;
+              if (lLabel) {
+                lLabel.innerHTML =
+                  '<span class="zh">长 ' + len + 'cm</span><span class="en">L ' + len + "cm</span>";
+              }
+              var firstOn = photo && (" " + photo.className + " ").indexOf(" is-on ") !== -1;
+              if (firstOn) guide.classList.add("is-on");
+              else guide.classList.remove("is-on");
+            }
+          }
+          box.setAttribute("data-sku", sku);
+          box.setAttribute("data-cny", cny);
+          box.setAttribute("data-usd", usd);
+        }
+
+        var boxes = document.getElementsByClassName("variants");
+        var x;
+        for (x = 0; x < boxes.length; x++) {
+          (function (box) {
+            var opts = box.querySelectorAll("[data-opt]");
+            var i;
+            for (i = 0; i < opts.length; i++) {
+              opts[i].onclick = function () {
+                var kind = this.getAttribute("data-opt");
+                var sibs = box.querySelectorAll('[data-opt="' + kind + '"]');
+                var s;
+                for (s = 0; s < sibs.length; s++) sibs[s].className = sibs[s].className.replace(/\bis-on\b/g, "").replace(/\s+/g, " ").replace(/^\s|\s$/g, "");
+                this.className = this.className + " is-on";
+                syncBox(box);
+              };
+            }
+            syncBox(box);
+          })(boxes[x]);
+        }
+
+        var MIN_CNY = 150;
+        var FREE_SHIP_CNY = 299;
+        var SHIP_CNY = 8;
+        var MEMBER_OFF = 0.15;
+        function moneyNum(n) {
+          return Math.round(n * 100) / 100;
+        }
+        function isMember() {
+          try {
+            var raw = localStorage.getItem("qz-user");
+            var user = raw ? JSON.parse(raw) : null;
+            return !!(user && user.name);
+          } catch (e) {
+            return false;
+          }
+        }
+        function normalizePhone(v) {
+          return String(v || "").replace(/\s+/g, "");
+        }
+        function getStoredUser() {
+          try {
+            var raw = localStorage.getItem("qz-user");
+            return raw ? JSON.parse(raw) : null;
+          } catch (e) {
+            return null;
+          }
+        }
+        function getAccounts() {
+          try {
+            var raw = localStorage.getItem("qz-accounts");
+            var list = raw ? JSON.parse(raw) : [];
+            return Array.isArray(list) ? list : [];
+          } catch (e) {
+            return [];
+          }
+        }
+        function saveAccounts(list) {
+          try {
+            localStorage.setItem("qz-accounts", JSON.stringify(list || []));
+          } catch (e) {}
+        }
+        function findAccountByPhone(phone) {
+          var want = normalizePhone(phone);
+          var list = getAccounts();
+          var i;
+          if (!want) return null;
+          for (i = 0; i < list.length; i++) {
+            if (normalizePhone(list[i] && list[i].phone) === want) return list[i];
+          }
+          return null;
+        }
+        function upsertAccount(account) {
+          if (!account || !normalizePhone(account.phone)) return;
+          var list = getAccounts();
+          var want = normalizePhone(account.phone);
+          var i;
+          var found = -1;
+          for (i = 0; i < list.length; i++) {
+            if (normalizePhone(list[i] && list[i].phone) === want) found = i;
+          }
+          if (found >= 0) list[found] = account;
+          else list.push(account);
+          saveAccounts(list);
+        }
+        function orderMatchesUser(order, user) {
+          if (!order || !user) return false;
+          var phone = normalizePhone(user.phone);
+          var email = String(user.email || "").trim();
+          var name = String(user.name || "").trim();
+          var customer = order.customer || {};
+          var orderPhone = normalizePhone(order.userPhone || customer.phone);
+          var orderEmail = String(customer.email || "").trim();
+          var orderName = String(customer.name || "").trim();
+          if (phone && orderPhone && phone === orderPhone) return true;
+          if (email && orderEmail && email === orderEmail) return true;
+          if (name && orderName && name === orderName) return true;
+          return false;
+        }
+        function orderMatchesUserPhone(order, user) {
+          var phone = normalizePhone(user && user.phone);
+          if (!phone || !order) return false;
+          var customer = order.customer || {};
+          return phone === normalizePhone(order.userPhone) || phone === normalizePhone(customer.phone);
+        }
+        function userHasPlacedOrder(user) {
+          if (!user) return false;
+          try {
+            var raw = localStorage.getItem("qz-orders");
+            var list = raw ? JSON.parse(raw) : [];
+            var i;
+            if (!Array.isArray(list)) return false;
+            for (i = 0; i < list.length; i++) {
+              if (orderMatchesUserPhone(list[i], user)) return true;
+            }
+          } catch (e) {}
+          return false;
+        }
+        function canUseFirstOrderOff() {
+          var user = typeof getStoredUser === "function" ? getStoredUser() : null;
+          return !!(user && user.name) && !userHasPlacedOrder(user);
+        }
+        function cartTotals() {
+          var count = 0;
+          var totalCny = 0;
+          var totalUsd = 0;
+          var i;
+          for (i = 0; i < cart.length; i++) {
+            count += cart[i].qty;
+            totalCny += cart[i].cny * cart[i].qty;
+            totalUsd += cart[i].usd * cart[i].qty;
+          }
+          totalCny = moneyNum(totalCny);
+          totalUsd = moneyNum(totalUsd);
+          var member = canUseFirstOrderOff();
+          var offCny = member && count ? moneyNum(totalCny * MEMBER_OFF) : 0;
+          var offUsd = member && count ? moneyNum(totalUsd * MEMBER_OFF) : 0;
+          var payCny = moneyNum(totalCny - offCny);
+          var payUsd = moneyNum(totalUsd - offUsd);
+          var ship = count > 0 && totalCny < FREE_SHIP_CNY ? SHIP_CNY : 0;
+          return {
+            count: count,
+            cny: totalCny,
+            usd: totalUsd,
+            member: member,
+            offCny: offCny,
+            offUsd: offUsd,
+            payCny: payCny,
+            payUsd: payUsd,
+            ship: ship,
+            due: moneyNum(payCny + ship)
+          };
+        }
+        function remainCny(total) {
+          return Math.round((MIN_CNY - total) * 100) / 100;
+        }
+        function showToast(text, ms) {
+          var toast = document.getElementById("toast");
+          toast.textContent = text;
+          toast.className = "toast is-on";
+          if (toast._hid) clearTimeout(toast._hid);
+          toast._hid = setTimeout(function () {
+            toast.className = "toast";
+          }, ms || 2200);
+        }
+        function openBag() {
+          var pop = document.getElementById("bagPop");
+          if (pop) pop.hidden = false;
+        }
+        function closeBag() {
+          var pop = document.getElementById("bagPop");
+          if (pop) pop.hidden = true;
+        }
+        function changeCartQty(sku, delta) {
+          var i;
+          for (i = 0; i < cart.length; i++) {
+            if (cart[i].sku !== sku) continue;
+            cart[i].qty = (Number(cart[i].qty) || 0) + delta;
+            if (cart[i].qty < 1) cart.splice(i, 1);
+            else if (cart[i].qty > 99) cart[i].qty = 99;
+            break;
+          }
+          drawBag();
+        }
+        function removeCartItem(sku) {
+          var next = [];
+          var i;
+          for (i = 0; i < cart.length; i++) {
+            if (cart[i].sku !== sku) next.push(cart[i]);
+          }
+          cart = next;
+          drawBag();
+        }
+        function bindBagList() {
+          var list = document.getElementById("bagList");
+          if (!list || list._bagBound) return;
+          list._bagBound = true;
+          list.addEventListener("click", function (e) {
+            var t = e.target;
+            while (t && t !== list) {
+              var act = t.getAttribute ? t.getAttribute("data-bag") : "";
+              if (act) {
+                e.preventDefault();
+                e.stopPropagation();
+                var sku = t.getAttribute("data-sku") || "";
+                if (!sku) return;
+                if (act === "plus") changeCartQty(sku, 1);
+                else if (act === "minus") changeCartQty(sku, -1);
+                else if (act === "remove") removeCartItem(sku);
+                return;
+              }
+              t = t.parentNode;
+            }
+          });
+        }
+        function drawBag() {
+          var list = document.getElementById("bagList");
+          var note = document.getElementById("bagMinNote");
+          var sums = cartTotals();
+          document.getElementById("cartCount").textContent = sums.count;
+          var goodsText = isEn() ? "$" + sums.usd : "¥" + sums.cny;
+          var shipText = sums.ship ? "¥" + sums.ship : L("免配送费", "Free");
+          var totalText = isEn() ? "¥" + sums.due : "¥" + sums.due;
+          var offText = isEn() ? "−$" + sums.offUsd : "−¥" + sums.offCny;
+          var goodsEls = document.querySelectorAll("#bagGoods, .bag-goods-amt");
+          var shipEls = document.querySelectorAll("#bagShip, .bag-ship-amt");
+          var offEls = document.querySelectorAll("#bagOff, .bag-off-amt");
+          var offRows = document.querySelectorAll(".bag-off-row");
+          var gi;
+          for (gi = 0; gi < goodsEls.length; gi++) goodsEls[gi].textContent = sums.count ? goodsText : (isEn() ? "$0" : "¥0");
+          for (gi = 0; gi < shipEls.length; gi++) shipEls[gi].textContent = sums.count ? shipText : "¥0";
+          for (gi = 0; gi < offEls.length; gi++) offEls[gi].textContent = sums.offCny ? offText : (isEn() ? "−$0" : "−¥0");
+          for (gi = 0; gi < offRows.length; gi++) offRows[gi].hidden = !(sums.count && sums.member);
+          var totals = document.getElementsByClassName("bag-total");
+          var t;
+          for (t = 0; t < totals.length; t++) totals[t].textContent = sums.count ? totalText : (isEn() ? "¥0" : "¥0");
+          if (note) {
+            var extra = sums.member || (isMember() && userHasPlacedOrder(getStoredUser()))
+              ? ""
+              : (isEn() ? " Log in or register for 15% off your first order." : " 登录或注册后，第一单享 15% 优惠。");
+            if (sums.count > 0 && sums.cny < MIN_CNY) {
+              note.hidden = false;
+              note.textContent = (isEn()
+                ? "Not enough for delivery. Add ¥" + remainCny(sums.cny) + " more to reach the ¥150 minimum."
+                : "还不够起送。满 150 元才配送，还差 ¥" + remainCny(sums.cny) + "。") + extra;
+            } else if (sums.count > 0 && sums.cny < FREE_SHIP_CNY) {
+              note.hidden = false;
+              note.textContent = (isEn()
+                ? "Under ¥299, so ¥8 delivery is added. Spend ¥" + (Math.round((FREE_SHIP_CNY - sums.cny) * 100) / 100) + " more for free shipping."
+                : "未满 299 元，已加收 8 元配送费。再买 ¥" + (Math.round((FREE_SHIP_CNY - sums.cny) * 100) / 100) + " 可免配送费。") + extra;
+            } else if (sums.count > 0 && !sums.member) {
+              note.hidden = false;
+              note.textContent = extra.replace(/^\s+/, "");
+            } else {
+              note.hidden = true;
+              note.textContent = "";
+            }
+          }
+          if (!cart.length) {
+            list.className = "empty";
+            list.innerHTML = isEn()
+              ? "The bag is empty. Pick something from the shop."
+              : "袋子是空的。到选物里挑一件。";
+            saveCart(cart);
+            return;
+          }
+          list.className = "";
+          var htmlParts = [];
+          var i;
+          for (i = 0; i < cart.length; i++) {
+            var line = cart[i];
+            var opt = L(line.colorZh, line.colorEn) + " · " + L(line.sizeZh, line.sizeEn);
+            htmlParts.push(
+              '<div class="line"><img src="' +
+                line.img +
+                '" alt=""/><div><h4>' +
+                L(line.nameZh, line.nameEn) +
+                "</h4><p>" +
+                opt +
+                " · " +
+                line.sku +
+                "</p><p>" +
+                money(line, line.qty) +
+                '</p><div class="bag-line-actions"><div class="bag-qty"><button type="button" data-bag="minus" data-sku="' +
+                line.sku +
+                '">−</button><span>' +
+                line.qty +
+                '</span><button type="button" data-bag="plus" data-sku="' +
+                line.sku +
+                '">+</button></div><button type="button" class="remove" data-bag="remove" data-sku="' +
+                line.sku +
+                '">' +
+                L("删除", "Remove") +
+                "</button></div></div></div>"
+            );
+          }
+          list.innerHTML = htmlParts.join("");
+          bindBagList();
+          saveCart(cart);
+        }
+
+        var qtyBoxes = document.getElementsByClassName("qty");
+        var q;
+        for (q = 0; q < qtyBoxes.length; q++) {
+          (function (box) {
+            var minus = box.querySelector(".qty-minus");
+            var plus = box.querySelector(".qty-plus");
+            var num = box.querySelector(".qty-num");
+            function setQty(n) {
+              n = parseInt(n, 10);
+              if (isNaN(n) || n < 1) n = 1;
+              if (n > 99) n = 99;
+              box.setAttribute("data-qty", String(n));
+              num.value = String(n);
+            }
+            minus.onclick = function () {
+              setQty((parseInt(box.getAttribute("data-qty"), 10) || 1) - 1);
+            };
+            plus.onclick = function () {
+              setQty((parseInt(box.getAttribute("data-qty"), 10) || 1) + 1);
+            };
+            num.oninput = function () {
+              var raw = String(num.value).replace(/[^0-9]/g, "");
+              num.value = raw;
+              if (raw) setQty(raw);
+            };
+            num.onblur = function () {
+              setQty(num.value);
+            };
+            num.onkeydown = function (e) {
+              if (e.key === "Enter") {
+                setQty(num.value);
+                num.blur();
+              }
+            };
+          })(qtyBoxes[q]);
+        }
+
+        (function reviews() {
+          try {
+            if (!localStorage.getItem("qz-reviews-cleared-1")) {
+              var ki;
+              for (ki = localStorage.length - 1; ki >= 0; ki--) {
+                var key = localStorage.key(ki);
+                if (key && key.indexOf("qz-reviews-") === 0) localStorage.removeItem(key);
+              }
+              localStorage.setItem("qz-reviews-cleared-1", "1");
+            }
+          } catch (e0) {}
+          var SEEDS = {
+            yama: [
+              { name: "林予", score: 5, zh: "每天晚上都围着垫子转，粮撒进谷地能玩十几分钟，羊毛也软。", en: "She circles it every night. Kibble in the valleys lasts a good ten minutes." },
+              { name: "阿棠", score: 4.5, zh: "山形比普通嗅闻垫有意思，猫也会把爪子伸进去试。", en: "More interesting than a flat mat. The cat pokes at the valleys too." },
+              { name: "老周", score: 4, zh: "手感扎实，就是洗完要阴干很久，阴雨天不太方便。", en: "Well made, but it takes forever to dry after washing." },
+              { name: "晚晚", score: 3.5, zh: "玩是好玩，粮掉进缝里有时不好抠出来。", en: "Fun to use, but kibble can get stuck in the seams." },
+              { name: "阿南", score: 2, zh: "第一次下水掉了不少毛，比想象中娇气，要小心伺候。", en: "Shed a lot on the first wash. More delicate than I expected." },
+              { name: "北北", score: 1.5, zh: "我们家那只闻两下就不理了，可能谷地太浅。", en: "Ours lost interest after a sniff. The valleys may be too shallow." }
+            ],
+            nawa: [
+              { name: "小满", score: 5, zh: "粗细刚好，拉扯不勒手，结打得也好咬。", en: "Right thickness, easy on the hands, the knot sits well in the mouth." },
+              { name: "阿舟", score: 4.5, zh: "颜色耐脏，扔在客厅也不突兀。", en: "The color hides dirt and looks fine in the living room." },
+              { name: "陈晨", score: 3.5, zh: "玩了两周开始起毛，棉绳大概就是这样，还能用。", en: "Started to fuzz after two weeks. Typical cotton, still usable." },
+              { name: "柚子", score: 3, zh: "适合轻轻拔河，真较劲还是会变形。", en: "Fine for gentle tug. It warps if you really pull." },
+              { name: "何姐", score: 1.5, zh: "我们家那只咬两下就散了一股，耐用性一般。", en: "One of the plies came apart after two bites. Not tough enough." },
+              { name: "老闵", score: 2.5, zh: "短的那款对我们金毛来说太短，得买长的。", en: "The short one is too short for a golden. Get the long." }
+            ],
+            nezumi: [
+              { name: "米粒", score: 5, zh: "猫叼着满屋跑，亚麻耳朵会颤，比带响纸的安静多了。", en: "She carries it room to room. The linen ears tremble. Much quieter than crinkle toys." },
+              { name: "江北", score: 4.5, zh: "没有塑料眼睛，放心给乱咬的小猫。大小也刚好。", en: "No plastic eyes, good for a rough kitten. Size is just right." },
+              { name: "阿棠", score: 4, zh: "羊毛味淡，新到的时候不用晾很久。", en: "Barely any wool smell. Didn’t need to air it out." },
+              { name: "苏青", score: 2, zh: "尾巴掉过一次，缝线再结实一点会更好。", en: "The tail came off once. Stitching could be stronger." },
+              { name: "阿梨", score: 3.5, zh: "好玩，就是容易滚到沙发底下去。", en: "Fun, but it rolls under the sofa constantly." },
+              { name: "冬至", score: 1, zh: "到货耳朵有点歪，看起来像次品。", en: "One ear arrived crooked. Looked like a second." }
+            ],
+            wan: [
+              { name: "阿禾", score: 4.5, zh: "釉色好看，吃饭明显慢下来，也没有塑料味。", en: "Beautiful glaze. Meals slowed down, and no plastic smell." },
+              { name: "小满满", score: 5, zh: "碗底沉，不容易被拱翻，这点比普通陶碗强。", en: "Heavy base, hard to tip. Better than ordinary ceramic bowls." },
+              { name: "老白", score: 3, zh: "脊有点浅，吃得快的狗还是几口就完，慢食效果一般。", en: "The ridge is a bit shallow. Fast eaters still finish quickly." },
+              { name: "青青", score: 4, zh: "手洗方便，釉面也不怎么挂油。", en: "Easy to wash by hand. Glaze doesn’t hold grease." },
+              { name: "方方", score: 1, zh: "收到有一小处磕釉，包装再护一下就好了。", en: "Arrived with a small chip in the glaze. Needs better packing." },
+              { name: "老段", score: 2.5, zh: "口径偏小，中型犬吃着有点挤。", en: "A bit narrow for a medium dog." }
+            ],
+            fukuro: [
+              { name: "迟迟", score: 5, zh: "比塑料益智玩具耐看，藏零食一层一层翻，很上瘾。", en: "Nicer than plastic puzzles. Hiding treats keeps them busy." },
+              { name: "老金", score: 4, zh: "帆布会越用越软，这点喜欢。缝线也结实。", en: "The canvas gets softer with use, which I like. Stitching is solid." },
+              { name: "阿宁", score: 4.5, zh: "塞小鼠正好，自己在客厅能玩一上午。", en: "Fits a felt mouse perfectly. Kept her busy all morning." },
+              { name: "桃子", score: 2.5, zh: "袋口偏大，冻干有时会掉出来，得塞深一点。", en: "The opening is a bit wide — freeze-dried treats fall out unless pushed deep." },
+              { name: "石头", score: 3.5, zh: "新的时候有点硬，用几次就好了。", en: "Stiff when new. Softens after a few uses." },
+              { name: "阿夏", score: 1.5, zh: "洗一次缩了一点，要按说明冷水才行。", en: "Shrank a little after washing. Stick to cold water." }
+            ],
+            kumo: [
+              { name: "南风", score: 5, zh: "枕着午睡刚好，亚麻不闷，形状歪歪的倒可爱。", en: "Perfect for a nap. Linen stays cool. The uneven shape is charming." },
+              { name: "小豆", score: 4.5, zh: "抱着走来走去也不沉，面料摸着干爽。", en: "Light enough to carry around. The linen feels dry to the touch." },
+              { name: "阿七月", score: 3.5, zh: "容易压扁，要经常揉一揉才恢复，懒人可能嫌烦。", en: "Flattens easily. You have to fluff it often." },
+              { name: "木子", score: 1.5, zh: "比照片小一圈，填充偏薄，枕着能感觉到底。", en: "Smaller than the photos, and a bit thin. You can feel through it." },
+              { name: "乔乔", score: 4, zh: "外套能拆下来洗，这点比一体填充省心。", en: "Removable cover is easier than a sealed cushion." },
+              { name: "老冯", score: 2, zh: "亚麻起了几个小毛球，要经常用粘毛器。", en: "Linen started pilling. You’ll need a lint roller." }
+            ]
+          };
+          function storeGet(id) {
+            try {
+              var raw = localStorage.getItem("qz-reviews-" + id);
+              return raw ? JSON.parse(raw) : [];
+            } catch (e) {
+              return [];
+            }
+          }
+          function storeSet(id, list) {
+            try {
+              localStorage.setItem("qz-reviews-" + id, JSON.stringify(list));
+            } catch (e) {}
+          }
+          function reviewAvatarPath(v) {
+            return String(v || "images/pet-kumo.jpg").replace(/"/g, "&quot;");
+          }
+          function escapeReviewText(v) {
+            return String(v || "")
+              .replace(/&amp;/g, "&")
+              .replace(/&lt;/g, "<")
+              .replace(/&gt;/g, ">")
+              .replace(/&quot;/g, '"')
+              .replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;")
+              .replace(/"/g, "&quot;");
+          }
+          function isLoggedIn() {
+            var user = typeof getStoredUser === "function" ? getStoredUser() : null;
+            return !!(user && user.name);
+          }
+          var painters = [];
+          var pages = document.querySelectorAll("section.pdp");
+          var r;
+          for (r = 0; r < pages.length; r++) {
+            (function (sec) {
+              var id = sec.id || "item";
+              var box = document.createElement("div");
+              var info = sec.querySelector(".pdp-info");
+              box.className = "pdp-reviews";
+              box.innerHTML =
+                '<div class="review-posted">' +
+                '<p class="opt-label"><span class="zh">已发表的评论</span><span class="en">Posted comments</span></p>' +
+                '<p class="review-hint"><span class="zh">确认收货后，可在「我的账户」里为订单商品写评价。</span><span class="en">After you confirm receipt, review order items from My account.</span></p>' +
+                '<div class="review-list"></div>' +
+                '</div>';
+              var reviewAnchor = sec.querySelector(".pdp-frame");
+              if (reviewAnchor && reviewAnchor.parentNode) {
+                reviewAnchor.insertAdjacentElement("afterend", box);
+              } else if (sec.querySelector(".pdp-frame")) {
+                sec.querySelector(".pdp-frame").insertAdjacentElement("afterend", box);
+              } else {
+                sec.appendChild(box);
+              }
+              var listEl = box.querySelector(".review-list");
+              function paint() {
+                var items = storeGet(id);
+                var html = [];
+                var i;
+                var seeds = SEEDS[id] || [];
+                var all = items.concat(seeds);
+                for (i = 0; i < all.length; i++) {
+                  var it = all[i];
+                  var avatar = reviewAvatarPath(it.avatar);
+                  var isBuyer = !!it.orderId && isLoggedIn();
+                  var safeName = escapeReviewText(it.name);
+                  var body = it.body
+                    ? escapeReviewText(it.body)
+                    : '<span class="zh">' + it.zh + '</span><span class="en">' + it.en + "</span>";
+                  var badge = isBuyer
+                    ? '<span class="review-verified"><span class="zh">已购</span><span class="en">Verified</span></span>'
+                    : "";
+                  html.push(
+                    '<article class="review-item">' +
+                      '<div class="review-head"><img class="review-avatar" src="' +
+                      avatar +
+                      '" alt="" /><p class="review-meta"><span class="zh">评论者</span><span class="en">Name</span><strong>' +
+                      safeName +
+                      "</strong>" +
+                      badge +
+                      "</p></div>" +
+                      '<p class="review-score"><span class="zh">打分</span><span class="en">Rating</span><span>' +
+                      starsHtml(it.score) +
+                      " " +
+                      (it.score || "—") +
+                      "</span></p>" +
+                      '<p class="review-body"><span class="zh">内容</span><span class="en">Comment</span><span>' +
+                      body +
+                      "</span></p></article>"
+                  );
+                }
+                listEl.innerHTML = html.join("");
+                if (window.qzHydrateLang) window.qzHydrateLang(listEl);
+              }
+              function starsHtml(n) {
+                n = Number(n);
+                if (!n) return '<span class="mini-stars">☆☆☆☆☆</span>';
+                return (
+                  '<span class="mini-stars"><span class="stars-bg">★★★★★</span><span class="stars-fill" style="width:' +
+                  n * 20 +
+                  '%">★★★★★</span></span>'
+                );
+              }
+              paint();
+              painters.push(paint);
+            })(pages[r]);
+          }
+          window.qzPaintReviews = function () {
+            var i;
+            for (i = 0; i < painters.length; i++) painters[i]();
+          };
+        })();
+
+        var buttons = document.getElementsByClassName("add-btn");
+        for (var b = 0; b < buttons.length; b++) {
+          buttons[b].onclick = function (e) {
+            if (e) e.stopPropagation();
+            var box = this.parentNode.querySelector(".variants");
+            var qtyBox = this.parentNode.querySelector(".qty");
+            var addQty = qtyBox ? parseInt(qtyBox.getAttribute("data-qty"), 10) || 1 : 1;
+            var color = chosen(box, "color");
+            var size = chosen(box, "size");
+            var sku = box.getAttribute("data-sku");
+            var found = null;
+            var i;
+            for (i = 0; i < cart.length; i++) {
+              if (cart[i].sku === sku) found = cart[i];
+            }
+            if (found) {
+              found.qty += addQty;
+            } else {
+              cart.push({
+                id: this.getAttribute("data-id"),
+                sku: sku,
+                qty: addQty,
+                cny: Number(box.getAttribute("data-cny")),
+                usd: Number(box.getAttribute("data-usd")),
+                nameZh: this.getAttribute("data-name-zh"),
+                nameEn: this.getAttribute("data-name-en"),
+                colorZh: color.getAttribute("data-zh"),
+                colorEn: color.getAttribute("data-en"),
+                sizeZh: size.getAttribute("data-zh"),
+                sizeEn: size.getAttribute("data-en"),
+                img: (color.getAttribute("data-img") || this.getAttribute("data-img") || "").replace(/\.jpg$/i, "-" + (size.getAttribute("data-code") || "").toLowerCase() + ".jpg"),
+              });
+            }
+            drawBag();
+            openBag();
+            var sums = cartTotals();
+            if (sums.cny < MIN_CNY) {
+              showToast(
+                isEn()
+                  ? "Added, but not enough for delivery. ¥" + remainCny(sums.cny) + " more to reach ¥150."
+                  : "已放入，但还不够起送。满 150 元才配送，还差 ¥" + remainCny(sums.cny) + "。",
+                2800
+              );
+            } else {
+              showToast(isEn() ? "Added " + sku : "已放入 " + sku, 1600);
+            }
+          };
+        }
+
+        (function pdpGalleries() {
+          var galleries = document.querySelectorAll("[data-gallery]");
+          var g;
+          for (g = 0; g < galleries.length; g++) {
+            (function (box) {
+              var slides = box.querySelectorAll(".pdp-slide");
+              var dots = box.querySelector(".pdp-dots");
+              var n = slides.length;
+              var cur = 0;
+              var i;
+              if (!n || !dots) return;
+              for (i = 0; i < n; i++) {
+                var b = document.createElement("button");
+                b.type = "button";
+                b.setAttribute("data-i", String(i));
+                if (i === 0) b.className = "is-on";
+                dots.appendChild(b);
+              }
+              function showSizeGuide(on) {
+                var guide = box.querySelector(".size-guide");
+                if (!guide) return;
+                if (on) guide.classList.add("is-on");
+                else guide.classList.remove("is-on");
+              }
+              function go(to) {
+                cur = (to + n) % n;
+                for (i = 0; i < n; i++) {
+                  var base = slides[i].className.replace(/\bis-on\b/g, "").replace(/\s+/g, " ").replace(/^\s|\s$/g, "");
+                  slides[i].className = base + (i === cur ? " is-on" : "");
+                  dots.children[i].className = i === cur ? "is-on" : "";
+                }
+                showSizeGuide(cur === 0);
+                if (hint) hint.style.opacity = cur === 1 ? "1" : "0";
+                if (cur === 1) {
+                  box.className += box.className.indexOf("is-spinning") === -1 ? " is-spinning" : "";
+                  targetT = 0.5;
+                  currentT = 0.5;
+                  startSpin();
+                } else {
+                  box.className = box.className.replace(/\bis-spinning\b/g, "").replace(/\s+/g, " ");
+                }
+              }
+              box.querySelector(".pdp-prev").onclick = function () {
+                go(cur - 1);
+              };
+              box.querySelector(".pdp-next").onclick = function () {
+                go(cur + 1);
+              };
+              dots.onclick = function (e) {
+                var t = e.target;
+                if (!t || !t.getAttribute("data-i")) return;
+                go(parseInt(t.getAttribute("data-i"), 10));
+              };
+              var petSrc = box.getAttribute("data-pet");
+              var petPos = box.getAttribute("data-pet-pos") || "bottom";
+              var petFlip = box.getAttribute("data-pet-flip") || "";
+              var petTuck = box.getAttribute("data-pet-tuck") || "";
+              var petAct = box.getAttribute("data-pet-act") || "";
+              if (petSrc) {
+                (function (src, pos, flip, tuck, act) {
+                  function keyToUrl(srcImg) {
+                    var max = 560;
+                    var sc = Math.min(1, max / Math.max(srcImg.width, srcImg.height));
+                    var w = Math.max(1, Math.round(srcImg.width * sc));
+                    var h = Math.max(1, Math.round(srcImg.height * sc));
+                    var c = document.createElement("canvas");
+                    c.width = w;
+                    c.height = h;
+                    var cx = c.getContext("2d");
+                    cx.drawImage(srcImg, 0, 0, w, h);
+                    var pix = cx.getImageData(0, 0, w, h);
+                    var d = pix.data;
+                    function at(x, y) {
+                      var i = (y * w + x) * 4;
+                      return [d[i], d[i + 1], d[i + 2]];
+                    }
+                    var pts = [
+                      at(2, 2),
+                      at(w - 3, 2),
+                      at(2, h - 3),
+                      at(w - 3, h - 3),
+                      at(w >> 1, 2),
+                      at(w >> 1, h - 3),
+                      at(2, h >> 1),
+                      at(w - 3, h >> 1)
+                    ];
+                    var br = 0;
+                    var bgc = 0;
+                    var bb = 0;
+                    var si;
+                    for (si = 0; si < pts.length; si++) {
+                      br += pts[si][0];
+                      bgc += pts[si][1];
+                      bb += pts[si][2];
+                    }
+                    br /= pts.length;
+                    bgc /= pts.length;
+                    bb /= pts.length;
+                    function distAt(i) {
+                      var dr = d[i] - br;
+                      var dg = d[i + 1] - bgc;
+                      var dbv = d[i + 2] - bb;
+                      return Math.sqrt(dr * dr + dg * dg + dbv * dbv);
+                    }
+                    var seen = new Uint8Array(w * h);
+                    var q = [];
+                    function enqueue(x, y) {
+                      if (x < 0 || y < 0 || x >= w || y >= h) return;
+                      var id = y * w + x;
+                      if (seen[id]) return;
+                      seen[id] = 1;
+                      q.push(id);
+                    }
+                    var x;
+                    var y;
+                    for (x = 0; x < w; x++) {
+                      enqueue(x, 0);
+                      enqueue(x, h - 1);
+                    }
+                    for (y = 0; y < h; y++) {
+                      enqueue(0, y);
+                      enqueue(w - 1, y);
+                    }
+                    var HARD = 40;
+                    var SOFT = 86;
+                    var qi = 0;
+                    while (qi < q.length) {
+                      var id = q[qi++];
+                      var i = id * 4;
+                      var di = distAt(i);
+                      if (di >= SOFT) continue;
+                      if (di < HARD) d[i + 3] = 0;
+                      else d[i + 3] = Math.round(d[i + 3] * ((di - HARD) / (SOFT - HARD)));
+                      var xx = id % w;
+                      var yy = (id / w) | 0;
+                      enqueue(xx + 1, yy);
+                      enqueue(xx - 1, yy);
+                      enqueue(xx, yy + 1);
+                      enqueue(xx, yy - 1);
+                    }
+                    var minX = w;
+                    var minY = h;
+                    var maxX = 0;
+                    var maxY = 0;
+                    var px;
+                    var py;
+                    for (py = 0; py < h; py++) {
+                      for (px = 0; px < w; px++) {
+                        if (d[(py * w + px) * 4 + 3] > 12) {
+                          if (px < minX) minX = px;
+                          if (py < minY) minY = py;
+                          if (px > maxX) maxX = px;
+                          if (py > maxY) maxY = py;
+                        }
+                      }
+                    }
+                    cx.putImageData(pix, 0, 0);
+                    var pad = 4;
+                    minX = Math.max(0, minX - pad);
+                    minY = Math.max(0, minY - pad);
+                    maxX = Math.min(w - 1, maxX + pad);
+                    maxY = Math.min(h - 1, maxY + pad);
+                    var cw = Math.max(1, maxX - minX + 1);
+                    var ch = Math.max(1, maxY - minY + 1);
+                    var outc = document.createElement("canvas");
+                    outc.width = cw;
+                    outc.height = ch;
+                    outc.getContext("2d").drawImage(c, minX, minY, cw, ch, 0, 0, cw, ch);
+                    return outc.toDataURL("image/png");
+                  }
+                  var im = new Image();
+                  im.onload = function () {
+                    try {
+                      var idleUrl = keyToUrl(im);
+                      var edge = "n";
+                      if (pos === "bottom") edge = "s";
+                      else if (pos === "left") edge = "w";
+                      else if (pos === "right") edge = "e";
+                      else if (pos === "tl") edge = "nw";
+                      else if (pos === "tr") edge = "ne";
+                      else if (pos === "bl") edge = "sw";
+                      var wrap = document.createElement("div");
+                      wrap.className = "sku-pet-wrap pos-" + pos + " edge-" + edge;
+                      wrap.setAttribute("role", "button");
+                      wrap.setAttribute("tabindex", "0");
+                      var mot = document.createElement("div");
+                      mot.className = "sku-pet-mot";
+                      var hold = document.createElement("div");
+                      hold.className = "sku-pet-hold";
+                      var pet = document.createElement("img");
+                      pet.className = "sku-pet";
+                      pet.alt = "";
+                      pet.src = idleUrl;
+                      hold.appendChild(pet);
+                      mot.appendChild(hold);
+                      var mood = document.createElement("span");
+                      mood.className = "pet-mood";
+                      mood.setAttribute("aria-hidden", "true");
+                      wrap.appendChild(mot);
+                      wrap.appendChild(mood);
+                      var faces = {
+                        idle: idleUrl,
+                        jump: idleUrl,
+                        peek: idleUrl,
+                        sleep: idleUrl,
+                        hop: idleUrl,
+                        stretch: idleUrl
+                      };
+                      var stem = src.replace(/\.jpg$/i, "");
+                      function loadFace(kind, alias) {
+                        var extra = new Image();
+                        extra.onload = function () {
+                          try {
+                            var url = keyToUrl(extra);
+                            faces[kind] = url;
+                            if (alias) faces[alias] = url;
+                          } catch (e2) {}
+                        };
+                        extra.src = stem + "-" + kind + ".jpg";
+                      }
+                      if (act !== "roll") {
+                        loadFace("jump", "hop");
+                        loadFace("peek", "");
+                        loadFace("sleep", "");
+                        if (act === "yawn" || act === "reach") loadFace("stretch", "");
+                        else loadFace("sleep", "stretch");
+                        if (act === "shy") loadFace("shy", "");
+                        if (act === "yoga") {
+                          loadFace("s1", "");
+                          loadFace("s2", "");
+                          loadFace("s3", "");
+                        }
+                      }
+                      var host = box.parentNode && box.parentNode.className.indexOf("pdp-frame") !== -1 ? box.parentNode : box;
+                      function flipPart() {
+                        if (flip === "x") return " scaleX(-1)";
+                        if (flip === "y") return " scaleY(-1)";
+                        return "";
+                      }
+                      var acting = false;
+                      var raf = 0;
+                      var hideTimer = 0;
+                      var extras = [];
+                      var rollLeft = null;
+                      var rollDir = 1;
+                      var arcLeft = null;
+                      var arcDir = -1;
+                      function placePet() {
+                        if (acting) return;
+                        var t = box.offsetTop;
+                        var l = box.offsetLeft;
+                        var mw = box.offsetWidth;
+                        var mh = box.offsetHeight;
+                        var pw = Math.max(40, Math.round(mw * 0.105));
+                        var ph = pet.offsetHeight || Math.round(pw * 1.05);
+                        var flipT = flipPart();
+                        wrap.style.width = pw + "px";
+                        wrap.style.height = ph + "px";
+                        wrap.style.right = "auto";
+                        wrap.style.bottom = "auto";
+                        hold.style.transform = flipT ? flipT.replace(/^\s/, "") : "none";
+                        mot.style.transform = "";
+                        if (pos === "bottom") {
+                          wrap.style.top = t + mh - 2 + "px";
+                          wrap.style.left = l + mw / 2 - pw / 2 + "px";
+                        } else if (pos === "bl") {
+                          wrap.style.top = t + mh - 2 + "px";
+                          wrap.style.left = l + "px";
+                        } else if (pos === "top") {
+                          wrap.style.top = t - ph + 2 + "px";
+                          wrap.style.left = act === "roll" && rollLeft !== null ? rollLeft + "px" : l + mw / 2 - pw / 2 + "px";
+                        } else if (pos === "tl") {
+                          wrap.style.top = t - ph + 2 + "px";
+                          wrap.style.left = l + "px";
+                        } else if (pos === "tr") {
+                          wrap.style.top = t - ph + 2 + "px";
+                          wrap.style.left = act === "arc" && arcLeft !== null ? arcLeft + "px" : l + mw - pw + "px";
+                        } else if (pos === "left") {
+                          wrap.style.top = t + mh / 2 - ph / 2 + "px";
+                          wrap.style.left = l - pw + 2 + "px";
+                        } else if (pos === "right") {
+                          wrap.style.top = t + mh / 2 - ph / 2 + "px";
+                          wrap.style.left = l + mw - 2 + "px";
+                        }
+                      }
+                      function layout() {
+                        var t = box.offsetTop;
+                        var l = box.offsetLeft;
+                        var mw = box.offsetWidth;
+                        var mh = box.offsetHeight;
+                        var pw = wrap.offsetWidth || Math.max(40, Math.round(mw * 0.105));
+                        var ph = wrap.offsetHeight || Math.round(pw * 1.05);
+                        return { t: t, l: l, mw: mw, mh: mh, pw: pw, ph: ph };
+                      }
+                      function clearExtras() {
+                        var i;
+                        for (i = 0; i < extras.length; i++) {
+                          if (extras[i] && extras[i].parentNode) extras[i].parentNode.removeChild(extras[i]);
+                        }
+                        extras = [];
+                      }
+                      function finishAct() {
+                        if (raf) cancelAnimationFrame(raf);
+                        raf = 0;
+                        if (hideTimer) clearTimeout(hideTimer);
+                        hideTimer = 0;
+                        acting = false;
+                        wrap.classList.remove("is-roll", "is-wand", "is-arc", "is-shy", "is-dig", "is-reach", "is-yawn", "is-yoga");
+                        wrap.style.transform = "";
+                        wrap.style.transition = "";
+                        wrap.style.zIndex = "";
+                        wrap.style.clipPath = "";
+                        mot.style.transform = "";
+                        pet.src = act === "roll" ? idleUrl : faces.idle;
+                        clearExtras();
+                        placePet();
+                      }
+                      function playRoll() {
+                        acting = true;
+                        wrap.classList.add("is-roll");
+                        wrap.style.clipPath = "none";
+                        pet.src = idleUrl;
+                        var h = layout();
+                        var topY = h.t - h.ph + 2;
+                        var minX = h.l;
+                        var maxX = h.l + h.mw - h.pw;
+                        var startX = rollLeft !== null ? rollLeft : h.l + h.mw / 2 - h.pw / 2;
+                        var travel = Math.min(h.ph * 0.85, (maxX - minX) * 0.16);
+                        var dest = startX + rollDir * travel;
+                        if (dest >= maxX) {
+                          dest = maxX;
+                          rollDir = -1;
+                        } else if (dest <= minX) {
+                          dest = minX;
+                          rollDir = 1;
+                        }
+                        if (Math.abs(dest - startX) < 6) {
+                          rollDir *= -1;
+                          dest = startX + rollDir * travel;
+                          if (dest > maxX) dest = maxX;
+                          if (dest < minX) dest = minX;
+                        }
+                        var dist = dest - startX;
+                        var t0 = performance.now();
+                        var dur = 780;
+                        function step(now) {
+                          var p = (now - t0) / dur;
+                          if (p >= 1) {
+                            rollLeft = dest;
+                            acting = false;
+                            wrap.classList.remove("is-roll");
+                            wrap.style.clipPath = "";
+                            hold.style.transform = "none";
+                            wrap.style.left = dest + "px";
+                            wrap.style.top = topY + "px";
+                            raf = 0;
+                            return;
+                          }
+                          var e = 0.5 - 0.5 * Math.cos(Math.min(1, p) * Math.PI);
+                          var x = startX + dist * e;
+                          wrap.style.left = x + "px";
+                          wrap.style.top = topY + "px";
+                          hold.style.transform = "rotate(" + rollDir * 360 * e + "deg)";
+                          raf = requestAnimationFrame(step);
+                        }
+                        raf = requestAnimationFrame(step);
+                      }
+                      function playWand() {
+                        acting = true;
+                        wrap.classList.add("is-wand");
+                        var h = layout();
+                        var wand = document.createElement("div");
+                        wand.className = "cat-wand";
+                        wand.innerHTML = '<span class="wand-stick"></span><span class="wand-feather"></span>';
+                        host.appendChild(wand);
+                        extras.push(wand);
+                        var minX = h.l + 8;
+                        var maxX = h.l + h.mw - 48;
+                        var baseY = h.t - 30;
+                        var t0 = performance.now();
+                        var dur = 5200;
+                        function wandAt(p) {
+                          var u = p < 0.5 ? p * 2 : 2 - p * 2;
+                          return {
+                            x: minX + (maxX - minX) * u,
+                            y: baseY - Math.sin(p * Math.PI * 3) * 10
+                          };
+                        }
+                        function step(now) {
+                          var p = (now - t0) / dur;
+                          if (p >= 1) {
+                            finishAct();
+                            return;
+                          }
+                          var wpos = wandAt(p);
+                          wand.style.left = wpos.x + "px";
+                          wand.style.top = wpos.y + "px";
+                          var chase = wandAt(Math.max(0, p - 0.16));
+                          var catX = chase.x - h.pw * 0.25;
+                          if (catX < h.l) catX = h.l;
+                          if (catX > h.l + h.mw - h.pw) catX = h.l + h.mw - h.pw;
+                          wrap.style.left = catX + "px";
+                          wrap.style.top = h.t - h.ph + 2 + "px";
+                          var turning = Math.abs(Math.cos(p * Math.PI * 2)) < 0.25;
+                          pet.src = turning ? faces.peek : faces.jump;
+                          mot.style.transform = "rotate(" + (wpos.x > catX ? -14 : 14) + "deg)";
+                          raf = requestAnimationFrame(step);
+                        }
+                        raf = requestAnimationFrame(step);
+                      }
+                      function playArc() {
+                        acting = true;
+                        wrap.classList.add("is-arc");
+                        pet.src = faces.jump;
+                        var h = layout();
+                        var minX = h.l;
+                        var maxX = h.l + h.mw - h.pw;
+                        var startX = arcLeft !== null ? arcLeft : maxX;
+                        var hopSpan = Math.max(26, h.mw * 0.09);
+                        var midX = startX + arcDir * hopSpan;
+                        var endX = startX + arcDir * hopSpan * 2;
+                        if (endX < minX) {
+                          endX = minX;
+                          midX = startX + (endX - startX) * 0.5;
+                        }
+                        if (endX > maxX) {
+                          endX = maxX;
+                          midX = startX + (endX - startX) * 0.5;
+                        }
+                        if (Math.abs(endX - startX) < 8) {
+                          arcDir *= -1;
+                          midX = startX + arcDir * hopSpan;
+                          endX = startX + arcDir * hopSpan * 2;
+                          if (endX < minX) endX = minX;
+                          if (endX > maxX) endX = maxX;
+                          midX = startX + (endX - startX) * 0.5;
+                        }
+                        var y0 = h.t - h.ph + 2;
+                        var hops = [
+                          { x0: startX, x1: midX },
+                          { x0: midX, x1: endX }
+                        ];
+                        var hopI = 0;
+                        var t0 = performance.now();
+                        var hopDur = 1180;
+                        function step(now) {
+                          if (hopI >= hops.length) {
+                            arcLeft = endX;
+                            acting = false;
+                            wrap.classList.remove("is-arc");
+                            mot.style.transform = "";
+                            pet.src = faces.idle;
+                            wrap.style.left = endX + "px";
+                            wrap.style.top = y0 + "px";
+                            raf = 0;
+                            return;
+                          }
+                          var p = (now - t0) / hopDur;
+                          if (p >= 1) {
+                            hopI += 1;
+                            t0 = now;
+                            raf = requestAnimationFrame(step);
+                            return;
+                          }
+                          var hop = hops[hopI];
+                          var x = hop.x0 + (hop.x1 - hop.x0) * p;
+                          var arc = 4 * p * (1 - p);
+                          wrap.style.left = x + "px";
+                          wrap.style.top = y0 - arc * 28 + "px";
+                          var dir = hop.x1 >= hop.x0 ? 1 : -1;
+                          mot.style.transform = "rotate(" + dir * (-10 + 18 * p) + "deg)";
+                          raf = requestAnimationFrame(step);
+                        }
+                        raf = requestAnimationFrame(step);
+                      }
+                      function playShy() {
+                        acting = true;
+                        wrap.classList.add("is-shy");
+                        pet.src = faces.shy || faces.peek;
+                        wrap.style.zIndex = "1";
+                        wrap.style.transition = "transform 0.45s ease";
+                        wrap.style.transform = "translateY(-78%)";
+                        hideTimer = setTimeout(function () {
+                          pet.src = faces.peek;
+                          wrap.style.transform = "translateY(-22%)";
+                          hideTimer = setTimeout(function () {
+                            finishAct();
+                          }, 900);
+                        }, 3000);
+                      }
+                      function playYoga() {
+                        acting = true;
+                        wrap.classList.add("is-yoga");
+                        wrap.style.clipPath = "none";
+                        function pose(name) {
+                          pet.src = faces[name] || faces.idle;
+                        }
+                        pose("s1");
+                        hideTimer = setTimeout(function () {
+                          if (acting) pose("s2");
+                        }, 700);
+                        setTimeout(function () {
+                          if (acting) pose("s3");
+                        }, 1600);
+                        setTimeout(function () {
+                          if (!acting) return;
+                          pose("idle");
+                          finishAct();
+                        }, 3200);
+                      }
+                      function playReach() {
+                        acting = true;
+                        wrap.classList.add("is-reach");
+                        wrap.style.clipPath = "none";
+                        pet.src = faces.stretch || faces.idle;
+                        if (!faces.stretch || faces.stretch === faces.idle) {
+                          var late = new Image();
+                          late.onload = function () {
+                            try {
+                              faces.stretch = keyToUrl(late);
+                              if (acting) pet.src = faces.stretch;
+                            } catch (e3) {
+                              if (acting) pet.src = stem + "-stretch.jpg";
+                            }
+                          };
+                          late.src = stem + "-stretch.jpg";
+                        }
+                        if (pos === "top") {
+                          var pawA = document.createElement("span");
+                          pawA.className = "reach-paw reach-paw-a";
+                          var pawB = document.createElement("span");
+                          pawB.className = "reach-paw reach-paw-b";
+                          wrap.appendChild(pawA);
+                          wrap.appendChild(pawB);
+                          extras.push(pawA);
+                          extras.push(pawB);
+                        }
+                        hideTimer = setTimeout(function () {
+                          if (!acting) return;
+                          pet.src = faces.idle;
+                          finishAct();
+                        }, 3000);
+                      }
+                      function playDig() {
+                        acting = true;
+                        wrap.classList.add("is-dig");
+                        pet.src = faces.idle;
+                        var h = layout();
+                        clearExtras();
+                        var hill = document.createElement("div");
+                        hill.className = "dirt-hill";
+                        hill.style.left = h.l - 26 + "px";
+                        hill.style.top = h.t - 26 + "px";
+                        hill.style.transform = "scale(0.12, 0.08)";
+                        hill.style.opacity = "0.35";
+                        host.appendChild(hill);
+                        extras.push(hill);
+                        var pawL = document.createElement("span");
+                        pawL.className = "dig-paw dig-paw-a";
+                        var pawR = document.createElement("span");
+                        pawR.className = "dig-paw dig-paw-b";
+                        wrap.appendChild(pawL);
+                        wrap.appendChild(pawR);
+                        extras.push(pawL);
+                        extras.push(pawR);
+                        var hillScale = 0.12;
+                        var n = 0;
+                        var spitId = 0;
+                        function growHill() {
+                          hillScale = Math.min(1, hillScale + 0.1);
+                          hill.style.opacity = "1";
+                          hill.style.transform = "scale(" + hillScale + ", " + (0.18 + hillScale * 0.82) + ")";
+                        }
+                        function spit() {
+                          if (!acting || n > 8) return;
+                          var spec = document.createElement("span");
+                          var sz = 5 + Math.round(Math.random() * 5);
+                          spec.className = "dirt-speck";
+                          spec.style.width = sz + "px";
+                          spec.style.height = sz + "px";
+                          spec.style.borderRadius = 40 + Math.round(Math.random() * 40) + "%";
+                          host.appendChild(spec);
+                          extras.push(spec);
+                          var x0 = h.l + h.pw * 0.72 + Math.random() * 8;
+                          var y0 = h.t + 2;
+                          var x1 = h.l - 18 + Math.random() * 16;
+                          var y1 = h.t - 4 + Math.random() * 6;
+                          var peak = 18 + Math.random() * 12;
+                          var t0 = performance.now();
+                          var flyDur = 540 + Math.random() * 160;
+                          function fly(now) {
+                            var p = (now - t0) / flyDur;
+                            if (p >= 1) {
+                              spec.style.left = x1 + "px";
+                              spec.style.top = y1 + "px";
+                              spec.style.opacity = "0";
+                              growHill();
+                              return;
+                            }
+                            var rise = 4 * p * (1 - p) * peak;
+                            spec.style.left = x0 + (x1 - x0) * p + "px";
+                            spec.style.top = y0 + (y1 - y0) * p - rise + "px";
+                            spec.style.opacity = String(1 - p * 0.15);
+                            requestAnimationFrame(fly);
+                          }
+                          requestAnimationFrame(fly);
+                          n += 1;
+                          spitId = setTimeout(spit, 380);
+                        }
+                        spitId = setTimeout(spit, 220);
+                        hideTimer = setTimeout(function () {
+                          clearTimeout(spitId);
+                          wrap.classList.remove("is-dig");
+                          pet.src = faces.idle;
+                          mot.style.transform = "";
+                          hill.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+                          hill.style.opacity = "0";
+                          hill.style.transform = "scale(0.55, 0.35)";
+                          var i;
+                          for (i = 0; i < extras.length; i++) {
+                            if (extras[i] && extras[i] !== hill) extras[i].style.opacity = "0";
+                          }
+                          hideTimer = setTimeout(function () {
+                            acting = false;
+                            clearExtras();
+                          }, 420);
+                        }, 3600);
+                      }
+                      function playYawn() {
+                        acting = true;
+                        wrap.classList.add("is-yawn");
+                        pet.src = faces.idle;
+                        hideTimer = setTimeout(function () {
+                          if (!acting) return;
+                          pet.src = faces.stretch || faces.sleep;
+                        }, 380);
+                        hideTimer = setTimeout(function () {
+                          if (!acting) return;
+                          pet.src = faces.idle;
+                          finishAct();
+                        }, 3400);
+                      }
+                      function playUnique() {
+                        if (acting) return;
+                        if (act === "roll") playRoll();
+                        else if (act === "wand") playWand();
+                        else if (act === "arc") playArc();
+                        else if (act === "shy") playShy();
+                        else if (act === "reach") playReach();
+                        else if (act === "yoga") playYoga();
+                        else if (act === "dig") playDig();
+                        else playYawn();
+                      }
+                      var autoTo = null;
+                      var autoIv = null;
+                      function stopAuto() {
+                        if (autoTo) clearTimeout(autoTo);
+                        if (autoIv) clearInterval(autoIv);
+                        autoTo = null;
+                        autoIv = null;
+                      }
+                      function startAuto(wait) {
+                        stopAuto();
+                        autoTo = setTimeout(function () {
+                          playUnique();
+                          autoIv = setInterval(playUnique, 5000);
+                        }, wait);
+                      }
+                      wrap.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        playUnique();
+                        startAuto(5000);
+                      });
+                      wrap.addEventListener("keydown", function (e) {
+                        if (e.key !== "Enter" && e.key !== " ") return;
+                        e.preventDefault();
+                        playUnique();
+                        startAuto(5000);
+                      });
+                      host.appendChild(wrap);
+                      placePet();
+                      pet.onload = placePet;
+                      window.addEventListener("resize", placePet);
+                      startAuto(1600 + Math.round(Math.random() * 1800));
+                    } catch (err) {}
+                  };
+                  im.src = src;
+                })(petSrc, petPos, petFlip, petTuck, petAct);
+              }
+              var real = box.querySelector(".real-shot");
+              var spin = box.getAttribute("data-spin") || "";
+              var hint = document.createElement("p");
+              hint.className = "spin-hint";
+              hint.innerHTML = '<span class="zh">按住左右拖动，连续查看角度</span><span class="en">Drag sideways to turn continuously</span>';
+              hint.style.opacity = "0";
+              box.appendChild(hint);
+              var order = [4, 7, 0, 1, 2, 5, 3, 6];
+              var frames = [];
+              var f;
+              for (f = 0; f < 8; f++) {
+                frames[f] = new Image();
+                frames[f].src = "images/" + spin + "-3d-" + f + ".jpg";
+              }
+              var canvas = document.createElement("canvas");
+              canvas.className = "spin-canvas";
+              box.appendChild(canvas);
+              var ctx = canvas.getContext("2d");
+              var targetT = 0.5;
+              var currentT = 0.5;
+              var spinning = false;
+              function fitDraw(img, alpha) {
+                if (!img || !img.complete || !img.width) return;
+                var w = canvas.width;
+                var h = canvas.height;
+                var ir = img.width / img.height;
+                var pad = 0.84;
+                var dw;
+                var dh;
+                if (ir > w / h) {
+                  dw = w * pad;
+                  dh = dw / ir;
+                } else {
+                  dh = h * pad;
+                  dw = dh * ir;
+                }
+                ctx.globalAlpha = alpha;
+                ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
+                ctx.globalAlpha = 1;
+              }
+              function paint() {
+                var w = box.clientWidth;
+                var h = box.clientHeight;
+                if (w < 2 || h < 2) return;
+                if (canvas.width !== w || canvas.height !== h) {
+                  canvas.width = w;
+                  canvas.height = h;
+                }
+                ctx.fillStyle = "#ffffff";
+                ctx.fillRect(0, 0, w, h);
+                var pos = currentT * (order.length - 1);
+                var i0 = Math.round(pos);
+                if (i0 < 0) i0 = 0;
+                if (i0 > order.length - 1) i0 = order.length - 1;
+                fitDraw(frames[order[i0]], 1);
+              }
+              function startSpin() {
+                if (spinning) return;
+                spinning = true;
+                function tick() {
+                  currentT += (targetT - currentT) * 0.16;
+                  if (Math.abs(targetT - currentT) < 0.0005) {
+                    currentT = targetT;
+                    spinning = false;
+                  }
+                  paint();
+                  if (spinning) window.requestAnimationFrame(tick);
+                }
+                window.requestAnimationFrame(tick);
+              }
+              box.addEventListener("mousemove", function (e) {
+                if (cur !== 1) return;
+                var tag = e.target && e.target.className ? String(e.target.className) : "";
+                if (tag.indexOf("pdp-arrow") !== -1 || tag.indexOf("pdp-dots") !== -1) return;
+                var r = box.getBoundingClientRect();
+                var x = (e.clientX - r.left) / r.width;
+                if (x < 0) x = 0;
+                if (x > 1) x = 1;
+                targetT = x;
+                startSpin();
+              });
+              box.addEventListener("mouseleave", function () {
+                targetT = 0.5;
+                startSpin();
+              });
+            })(galleries[g]);
+          }
+        })();
+
+        (function heroScroll() {
+          var slides = document.querySelectorAll(".hero-slide");
+          var dotsWrap = document.getElementById("heroDots");
+          if (!slides.length || !dotsWrap) return;
+          var i;
+          var n = slides.length;
+          var cur = 0;
+          var timer = null;
+          for (i = 0; i < n; i++) {
+            var b = document.createElement("button");
+            b.type = "button";
+            if (i === 0) b.className = "is-on";
+            b.setAttribute("data-i", String(i));
+            dotsWrap.appendChild(b);
+          }
+          function go(to) {
+            cur = (to + n) % n;
+            for (i = 0; i < n; i++) {
+              slides[i].className = i === cur ? "hero-slide is-on" : "hero-slide";
+              dotsWrap.children[i].className = i === cur ? "is-on" : "";
+            }
+          }
+          function play() {
+            stop();
+            timer = setInterval(function () {
+              go(cur + 1);
+            }, 4200);
+          }
+          function stop() {
+            if (timer) clearInterval(timer);
+            timer = null;
+          }
+          document.getElementById("heroPrev").onclick = function () {
+            go(cur - 1);
+            play();
+          };
+          document.getElementById("heroNext").onclick = function () {
+            go(cur + 1);
+            play();
+          };
+          dotsWrap.onclick = function (e) {
+            var t = e.target;
+            if (!t || !t.getAttribute("data-i")) return;
+            go(parseInt(t.getAttribute("data-i"), 10));
+            play();
+          };
+          var visual = document.getElementById("heroVisual");
+          visual.onmouseenter = stop;
+          visual.onmouseleave = play;
+          play();
+        })();
+
+        (function pawCursor() {
+          var el = document.createElement("div");
+          el.className = "paw-cursor";
+          el.setAttribute("aria-hidden", "true");
+          el.innerHTML =
+            '<svg viewBox="0 0 32 32"><circle cx="11" cy="11" r="3.2"/><circle cx="21" cy="11" r="3.2"/><circle cx="8" cy="17.5" r="2.6"/><circle cx="24" cy="17.5" r="2.6"/><ellipse cx="16" cy="22.2" rx="5.2" ry="4.4"/></svg>';
+          document.body.appendChild(el);
+          document.addEventListener("mousemove", function (e) {
+            el.style.left = e.clientX + "px";
+            el.style.top = e.clientY + "px";
+          });
+          document.addEventListener("mousedown", function () {
+            el.classList.add("is-down");
+          });
+          document.addEventListener("mouseup", function () {
+            el.classList.remove("is-down");
+          });
+          document.addEventListener("mouseleave", function () {
+            el.classList.remove("is-down");
+          });
+        })();
+
+        function paintUser() {
+          var chip = document.getElementById("headerUser");
+          var img = document.getElementById("userAvatar");
+          var nameEl = document.getElementById("userName");
+          var user = getStoredUser();
+          var loginBtn = document.getElementById("headerLoginBtn");
+          var regBtn = document.getElementById("headerRegBtn");
+          function showAuthBtns(on) {
+            var buttons = [loginBtn, regBtn];
+            var i;
+            for (i = 0; i < buttons.length; i++) {
+              if (!buttons[i]) continue;
+              if (on) {
+                buttons[i].hidden = false;
+                buttons[i].removeAttribute("hidden");
+                buttons[i].style.display = "";
+              } else {
+                buttons[i].hidden = true;
+                buttons[i].setAttribute("hidden", "");
+                buttons[i].style.display = "none";
+              }
+            }
+          }
+          if (!user || !user.name) {
+            chip.hidden = true;
+            showAuthBtns(true);
+            if (typeof drawBag === "function") drawBag();
+            return;
+          }
+          chip.hidden = false;
+          showAuthBtns(false);
+          img.src = user.avatar || "images/pet-kumo.jpg";
+          nameEl.textContent = user.name;
+          if (typeof drawBag === "function") drawBag();
+        }
+        window.qzRenderProfile = function () {
+          var pane = document.getElementById("welcomeProfile");
+          var avatar = document.getElementById("profileAvatar");
+          var nameEl = document.getElementById("profileName");
+          var emailEl = document.getElementById("profileEmail");
+          var phoneEl = document.getElementById("profilePhone");
+          if (!pane || !avatar || !nameEl || !emailEl || !phoneEl) return;
+          var user = getStoredUser();
+          if (!user || !user.name) {
+            pane.hidden = true;
+            pane.setAttribute("hidden", "");
+            pane.style.display = "none";
+            return;
+          }
+          avatar.src = user.avatar || "images/pet-kumo.jpg";
+          nameEl.textContent = user.name;
+          emailEl.textContent = user.email || "—";
+          phoneEl.textContent = user.phone || "—";
+        };
+        paintUser();
+        (function headerAvatar() {
+          var chip = document.getElementById("headerUser");
+          var fileInp = document.getElementById("headerAvatarFile");
+          var profileLink = document.getElementById("headerProfileLink");
+          var logoutBtn = document.getElementById("logoutBtn");
+          var profileAvatarBtn = document.getElementById("profileChangeAvatar");
+          if (!chip) return;
+          if (profileLink) {
+            profileLink.onclick = function (e) {
+              e.stopPropagation();
+            };
+          }
+          if (logoutBtn) {
+            logoutBtn.onclick = function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+              try {
+                localStorage.removeItem("qz-user");
+                localStorage.removeItem("qz-welcome-seen-15");
+              } catch (err) {}
+              paintUser();
+              if (window.qzPaintReviews) window.qzPaintReviews();
+              if (window.qzRenderProfile) window.qzRenderProfile();
+              if (window.qzShowAuth) window.qzShowAuth("offer");
+            };
+          }
+          if (profileAvatarBtn) {
+            profileAvatarBtn.onclick = function (e) {
+              e.stopPropagation();
+              fileInp.click();
+            };
+          }
+          fileInp.onclick = function (e) {
+            e.stopPropagation();
+          };
+          fileInp.onchange = function () {
+            var file = fileInp.files && fileInp.files[0];
+            if (!file || String(file.type || "").indexOf("image/") !== 0) return;
+            var img = new Image();
+            var url = URL.createObjectURL(file);
+            img.onload = function () {
+              var size = 180;
+              var canvas = document.createElement("canvas");
+              canvas.width = size;
+              canvas.height = size;
+              var ctx = canvas.getContext("2d");
+              var side = Math.min(img.width, img.height);
+              ctx.drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, size, size);
+              URL.revokeObjectURL(url);
+              var data = canvas.toDataURL("image/jpeg", 0.86);
+              try {
+                var raw = localStorage.getItem("qz-user");
+                var user = raw ? JSON.parse(raw) : null;
+                if (!user) return;
+                user.avatar = data;
+                localStorage.setItem("qz-user", JSON.stringify(user));
+              } catch (err) {}
+              paintUser();
+              if (window.qzRenderProfile) window.qzRenderProfile();
+            };
+            img.src = url;
+          };
+        })();
+
+        (function welcome() {
+          var box = document.getElementById("welcome");
+          var offer = document.getElementById("welcomeOffer");
+          var loginForm = document.getElementById("welcomeLoginForm");
+          var regForm = document.getElementById("welcomeRegForm");
+          var privacyView = document.getElementById("welcomePrivacy");
+          var privacyBack = document.getElementById("privacyBack");
+          var afterPrivacy = "login";
+          var avatars = [
+            "images/pet-yama.jpg",
+            "images/pet-nawa.jpg",
+            "images/pet-nezumi.jpg",
+            "images/pet-wan.jpg",
+            "images/pet-fukuro.jpg",
+            "images/pet-kumo.jpg"
+          ];
+          function readAvatarFile(file, done) {
+            if (!file || String(file.type || "").indexOf("image/") !== 0) return;
+            var img = new Image();
+            var url = URL.createObjectURL(file);
+            img.onload = function () {
+              var size = 180;
+              var canvas = document.createElement("canvas");
+              canvas.width = size;
+              canvas.height = size;
+              var ctx = canvas.getContext("2d");
+              var side = Math.min(img.width, img.height);
+              var sx = (img.width - side) / 2;
+              var sy = (img.height - side) / 2;
+              ctx.drawImage(img, sx, sy, side, side, 0, 0, size, size);
+              URL.revokeObjectURL(url);
+              done(canvas.toDataURL("image/jpeg", 0.86));
+            };
+            img.onerror = function () {
+              URL.revokeObjectURL(url);
+            };
+            img.src = url;
+          }
+          function markAvatar(root, el) {
+            var all = root.querySelectorAll(".avatar-opt");
+            var j;
+            for (j = 0; j < all.length; j++) {
+              all[j].className = String(all[j].className).replace(/\s*is-on\b/g, "");
+            }
+            el.className = el.className + " is-on";
+          }
+          function fillAvatars(root, hidden) {
+            var i;
+            root.innerHTML = "";
+            for (i = 0; i < avatars.length; i++) {
+              var b = document.createElement("button");
+              b.type = "button";
+              b.className = "avatar-opt" + (i === 5 ? " is-on" : "");
+              b.setAttribute("data-src", avatars[i]);
+              b.innerHTML = '<img src="' + avatars[i] + '" alt="" />';
+              root.appendChild(b);
+            }
+            var up = document.createElement("label");
+            up.className = "avatar-opt avatar-upload";
+            up.title = "上传照片";
+            up.innerHTML = '<span>+</span><img alt="" hidden /><input type="file" accept="image/*" />';
+            root.appendChild(up);
+            var fileInp = up.querySelector("input");
+            var preview = up.querySelector("img");
+            fileInp.onclick = function (e) {
+              e.stopPropagation();
+            };
+            fileInp.onchange = function () {
+              var file = fileInp.files && fileInp.files[0];
+              readAvatarFile(file, function (data) {
+                hidden.value = data;
+                preview.src = data;
+                preview.hidden = false;
+                up.className = "avatar-opt avatar-upload has-img is-on";
+                markAvatar(root, up);
+              });
+            };
+            root.onclick = function (e) {
+              var btn = e.target;
+              if (btn.tagName === "IMG" || btn.tagName === "SPAN") btn = btn.parentNode;
+              if (!btn || !btn.getAttribute("data-src")) return;
+              markAvatar(root, btn);
+              hidden.value = btn.getAttribute("data-src");
+            };
+          }
+          try {
+            var loginPicker = loginForm.querySelector(".avatar-pick");
+            if (loginPicker && loginForm.avatar) {
+              fillAvatars(loginPicker, loginForm.avatar);
+            }
+            var regPicker = regForm.querySelector(".avatar-pick");
+            if (regPicker && regForm.avatar) {
+              fillAvatars(regPicker, regForm.avatar);
+            }
+          } catch (err) {}
+          function seen() {
+            try {
+              return !!localStorage.getItem("qz-welcome-seen-15");
+            } catch (e) {
+              return false;
+            }
+          }
+          function mark() {
+            try {
+              localStorage.setItem("qz-welcome-seen-15", "1");
+              localStorage.setItem("qz-first-off", "15");
+            } catch (e) {}
+          }
+          function saveUser(form, overrides) {
+            var name = "";
+            var email = "";
+            var avatar = "images/pet-kumo.jpg";
+            if (form.name) {
+              name = (form.name.value || "").replace(/^\s+|\s+$/g, "");
+            }
+            if (form.email) {
+              email = form.email.value;
+            }
+            if (overrides && overrides.name) {
+              name = overrides.name;
+            }
+            if (overrides && typeof overrides.email !== "undefined") {
+              email = overrides.email;
+            }
+            if (overrides && overrides.avatar) {
+              avatar = overrides.avatar;
+            } else if (form.avatar) {
+              avatar = form.avatar.value || avatar;
+            }
+            if (!name) {
+              var phoneOnly = String(form.phone && form.phone.value ? form.phone.value : "").replace(/\s+/g, "");
+              name = phoneOnly ? "用户" + phoneOnly.slice(-4) : "用户";
+            }
+            var prev = getStoredUser() || {};
+            var phone = form.phone ? (form.phone.value || "") : "";
+            var user = {
+              name: name,
+              email: email,
+              phone: phone,
+              avatar: avatar
+            };
+            if (userHasPlacedOrder({ phone: phone })) {
+              user.hasOrdered = true;
+              user.firstOrderAt = prev.firstOrderAt || Date.now();
+            }
+            try {
+              localStorage.setItem("qz-user", JSON.stringify(user));
+            } catch (e) {}
+            paintUser();
+            if (window.qzPaintReviews) window.qzPaintReviews();
+          }
+          var pendingCode = "";
+          var pendingPhone = "";
+          var codeTimer = 0;
+          var sendBtn = document.getElementById("sendCodeBtn");
+          var codeHint = document.getElementById("codeHint");
+          var sendBtnLogin = document.getElementById("sendCodeBtnLogin");
+          var loginCodeHint = document.getElementById("codeHintLogin");
+          function validPhone(v) {
+            return /^1[3-9]\d{9}$/.test(String(v || "").replace(/\s+/g, ""));
+          }
+          function bindSendCode(phoneEl, btn, hintEl, mode) {
+            if (!phoneEl || !btn || !hintEl) return;
+            btn.onclick = function () {
+              var phone = (phoneEl.value || "").replace(/\s+/g, "");
+              if (!validPhone(phone)) {
+                hintEl.hidden = false;
+                hintEl.textContent = isEn() ? "Enter a valid mainland mobile number." : "请先填写正确的 11 位手机号码。";
+                return;
+              }
+              if (mode === "login" && !findAccountByPhone(phone)) {
+                hintEl.hidden = false;
+                hintEl.textContent = isEn()
+                  ? "This number is not registered. Please register first."
+                  : "该手机号尚未注册，请先注册。";
+                return;
+              }
+              if (mode === "reg" && findAccountByPhone(phone)) {
+                hintEl.hidden = false;
+                hintEl.textContent = isEn()
+                  ? "This number is already registered. Please log in."
+                  : "该手机号已注册，请直接登录。";
+                return;
+              }
+              pendingPhone = phone;
+              pendingCode = String(100000 + Math.floor(Math.random() * 900000));
+              hintEl.hidden = false;
+              hintEl.textContent = isEn()
+                ? "Code sent to " + phone + ". Demo code: " + pendingCode
+                : "验证码已发送至 " + phone + "。演示验证码：" + pendingCode;
+              showToast(isEn() ? "Code sent. Demo: " + pendingCode : "验证码已发送。演示验证码：" + pendingCode, 3200);
+              var left = 60;
+              btn.disabled = true;
+              function tick() {
+                btn.textContent = isEn() ? "Retry in " + left + "s" : left + " 秒后重发";
+                left -= 1;
+                if (left < 0) {
+                  btn.disabled = false;
+                  btn.innerHTML = '<span class="zh">发送验证码</span><span class="en">Send code</span>';
+                  return;
+                }
+                codeTimer = setTimeout(tick, 1000);
+              }
+              if (codeTimer) clearTimeout(codeTimer);
+              tick();
+            };
+          }
+          bindSendCode(loginForm.phone, sendBtnLogin, loginCodeHint, "login");
+          bindSendCode(regForm.phone, sendBtn, codeHint, "reg");
+          function close() {
+            if (window.qzCloseAuth) window.qzCloseAuth();
+            else {
+              box.hidden = true;
+              box.style.display = "none";
+              mark();
+            }
+          }
+          function show(which) {
+            if (window.qzShowAuth) window.qzShowAuth(which);
+          }
+          function openPrivacy(next) {
+            if (next) afterPrivacy = next;
+            show("privacy");
+          }
+          window.openPrivacyPop = function (e) {
+            if (e) e.preventDefault();
+            openPrivacy();
+          };
+          var loggedIn = false;
+          try {
+            var currentUser = typeof getStoredUser === "function" ? getStoredUser() : null;
+            loggedIn = !!(currentUser && currentUser.name);
+          } catch (err) {}
+          var showOffer = !loggedIn;
+          try {
+            showOffer = !loggedIn || (typeof canUseFirstOrderOff === "function" && canUseFirstOrderOff());
+          } catch (err2) {}
+          if (showOffer) {
+            if (window.qzSyncOfferActions) window.qzSyncOfferActions();
+            if (window.qzShowAuth) window.qzShowAuth("offer");
+            else {
+              box.hidden = false;
+              box.style.display = "flex";
+            }
+          } else if (window.qzHideAuth) {
+            window.qzHideAuth();
+          }
+          var headerLogin = document.getElementById("headerLoginBtn");
+          var headerRegBtn = document.getElementById("headerRegBtn");
+          if (headerLogin) {
+            headerLogin.onclick = function (e) {
+              e.stopPropagation();
+              show("login");
+            };
+          }
+          if (headerRegBtn) {
+            headerRegBtn.onclick = function (e) {
+              e.stopPropagation();
+              show("reg");
+            };
+          }
+          document.getElementById("welcomeClose").onclick = close;
+          document.getElementById("welcomeLogin").onclick = function () {
+            show("login");
+          };
+          document.getElementById("welcomeReg").onclick = function () {
+            show("reg");
+          };
+          function bindAuthSwitch(id, which) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            el.onclick = function (e) {
+              if (e && e.preventDefault) e.preventDefault();
+              show(which);
+            };
+          }
+          bindAuthSwitch("loginGoReg", "reg");
+          bindAuthSwitch("loginGoRegEn", "reg");
+          bindAuthSwitch("regGoLogin", "login");
+          bindAuthSwitch("regGoLoginEn", "login");
+          if (privacyBack) {
+            privacyBack.onclick = function () {
+              show(afterPrivacy || "offer");
+            };
+          }
+          loginForm.onsubmit = function (e) {
+            e.preventDefault();
+            var phone = (loginForm.phone.value || "").replace(/\s+/g, "");
+            var code = (loginForm.code.value || "").replace(/\s+/g, "");
+            if (!validPhone(phone)) {
+              if (loginCodeHint) {
+                loginCodeHint.hidden = false;
+                loginCodeHint.textContent = isEn() ? "Enter a valid mainland mobile number." : "请填写正确的 11 位手机号码。";
+              }
+              return;
+            }
+            if (!pendingCode || phone !== pendingPhone) {
+              if (loginCodeHint) {
+                loginCodeHint.hidden = false;
+                loginCodeHint.textContent = isEn() ? "Send a verification code to this number first." : "请先向该手机号发送验证码。";
+              }
+              return;
+            }
+            if (code !== pendingCode) {
+              if (loginCodeHint) {
+                loginCodeHint.hidden = false;
+                loginCodeHint.textContent = isEn() ? "The code is incorrect." : "验证码不正确，请重新输入。";
+              }
+              return;
+            }
+            var account = findAccountByPhone(phone);
+            if (!account) {
+              if (loginCodeHint) {
+                loginCodeHint.hidden = false;
+                loginCodeHint.textContent = isEn()
+                  ? "This number is not registered. Please register first."
+                  : "该手机号尚未注册，请先注册。";
+              }
+              showToast(isEn() ? "Please register before logging in." : "请先注册再登录。", 2400);
+              return;
+            }
+            saveUser(loginForm, {
+              name: account.name,
+              email: account.email,
+              avatar: account.avatar || "images/pet-kumo.jpg"
+            });
+            try {
+              var session = getStoredUser() || {};
+              session.hasOrdered = !!account.hasOrdered;
+              session.firstOrderAt = account.firstOrderAt || session.firstOrderAt;
+              session.address = account.address || session.address || "";
+              localStorage.setItem("qz-user", JSON.stringify(session));
+            } catch (err) {}
+            paintUser();
+            if (window.qzPaintReviews) window.qzPaintReviews();
+            close();
+            showToast(
+              account.hasOrdered
+                ? (isEn() ? "Logged in." : "已登录。")
+                : (isEn() ? "Logged in. 15% off your first order." : "已登录。首次购买可享 15% 优惠。"),
+              2400
+            );
+          };
+          regForm.onsubmit = function (e) {
+            e.preventDefault();
+            var phone = (regForm.phone.value || "").replace(/\s+/g, "");
+            var code = (regForm.code.value || "").replace(/\s+/g, "");
+            if (!validPhone(phone)) {
+              if (codeHint) {
+                codeHint.hidden = false;
+                codeHint.textContent = isEn() ? "Enter a valid mainland mobile number." : "请填写正确的 11 位手机号码。";
+              }
+              return;
+            }
+            if (!pendingCode || phone !== pendingPhone) {
+              if (codeHint) {
+                codeHint.hidden = false;
+                codeHint.textContent = isEn() ? "Send a verification code to this number first." : "请先向该手机号发送验证码。";
+              }
+              return;
+            }
+            if (code !== pendingCode) {
+              if (codeHint) {
+                codeHint.hidden = false;
+                codeHint.textContent = isEn() ? "The code is incorrect." : "验证码不正确，请重新输入。";
+              }
+              return;
+            }
+            if (findAccountByPhone(phone)) {
+              if (codeHint) {
+                codeHint.hidden = false;
+                codeHint.textContent = isEn()
+                  ? "This number is already registered. Please log in."
+                  : "该手机号已注册，请直接登录。";
+              }
+              showToast(isEn() ? "Already registered. Please log in." : "该手机号已注册，请直接登录。", 2400);
+              return;
+            }
+            saveUser(regForm);
+            var created = getStoredUser() || {};
+            upsertAccount({
+              name: created.name || "",
+              email: created.email || "",
+              phone: phone,
+              avatar: created.avatar || "images/pet-kumo.jpg",
+              password: regForm.password ? String(regForm.password.value || "") : "",
+              address: created.address || "",
+              hasOrdered: !!created.hasOrdered,
+              firstOrderAt: created.firstOrderAt || null,
+              createdAt: Date.now()
+            });
+            close();
+            showToast(isEn() ? "Registered. 15% off your first order." : "注册成功。首次购买可享 15% 优惠。", 2400);
+          };
+        })();
+
+        (function privacyPop() {
+          document.addEventListener("click", function (e) {
+            var el = e.target;
+            while (el && el !== document) {
+              if (el.getAttribute && (el.getAttribute("data-open-privacy") !== null || el.getAttribute("href") === "#privacy")) {
+                if (e.preventDefault) e.preventDefault();
+                if (window.openPrivacyPop) window.openPrivacyPop(e);
+                return;
+              }
+              el = el.parentNode;
+            }
+          });
+        })();
+
+        (function bagPop() {
+          var btn = document.getElementById("bagBtn");
+          var pop = document.getElementById("bagPop");
+          var go = document.getElementById("bagCheckout");
+          if (!btn || !pop) return;
+          btn.onclick = function (e) {
+            e.stopPropagation();
+            pop.hidden = !pop.hidden;
+          };
+          pop.onclick = function (e) {
+            e.stopPropagation();
+          };
+            document.addEventListener("click", closeBag);
+          if (go) {
+            go.onclick = function (e) {
+              var sums = cartTotals();
+              if (sums.count > 0 && sums.cny < MIN_CNY) {
+                e.preventDefault();
+                showToast(
+                  isEn()
+                    ? "Below the delivery minimum. Checkout unavailable. Add ¥" + remainCny(sums.cny) + " more to reach ¥150."
+                    : "不够起送费，无法结账。满 150 元才配送，还差 ¥" + remainCny(sums.cny) + "。",
+                  2800
+                );
+                return;
+              }
+              closeBag();
+            };
+          }
+        })();
+      })();
+    </script>
+  </body>
+</html>
